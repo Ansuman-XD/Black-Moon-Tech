@@ -1,0 +1,377 @@
+/* =======================
+   Imports
+======================= */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+
+/* =======================
+   Fullscreen Hero Section
+======================= */
+.hero {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start; /* Align overlay to the left */
+  align-items: center; /* Center vertically */
+  text-align: left;
+  padding-left: 20rem;
+  font-family: "Poppins", sans-serif;
+}
+
+/* =======================
+   Fullscreen Video Background
+======================= */
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 13px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* =======================
+   Dark Transparent Overlay Layer
+======================= */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1;
+}
+
+/* =======================
+   Glass Overlay Content
+======================= */
+.overlay {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  max-width: 700px;
+  margin-left: -10rem;
+  text-align: left;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInGlass 1.8s ease-out forwards;
+  font-family: "Nanum Gothic Coding", monospace;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+}
+
+.overlay:hover {
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+  transition: box-shadow 0.4s ease;
+}
+
+/* =======================
+   Text Styling
+======================= */
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  animation: fadeInText 2s ease-in-out 0.4s forwards;
+  opacity: 0;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #d1d1d1;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  animation: fadeInText 2s ease-in-out 0.7s forwards;
+  opacity: 0;
+}
+
+/* =======================
+   Buttons
+======================= */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  animation: fadeInText 2s ease-in-out 1s forwards;
+  opacity: 0;
+}
+
+.btn {
+  border: none;
+  padding: 12px 26px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.btn-light {
+  background-color: #fff;
+  color: #000;
+}
+
+.btn-dark {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.btn-light:hover {
+  background-color: #eaeaeaff;
+}
+
+.btn-dark:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* =======================
+   Animations
+======================= */
+@keyframes fadeInGlass {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    backdrop-filter: blur(0);
+  }
+  60% {
+    opacity: 0.7;
+    transform: translateY(10px);
+    backdrop-filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    backdrop-filter: blur(8px);
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =======================
+   Responsive Design
+======================= */
+@media (max-width: 768px) {
+  .hero {
+    justify-content: center;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+
+  .overlay {
+    margin-left: 2rem;
+    max-width: 90%;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+  }
+}
+
+/* =======================
+   Right-side Branding (NEW)
+======================= */
+/* =======================
+   Right-side Branding (Dark + Glass)
+   Replace previous .branding rules with this
+ /* =======================
+   Right-side Branding (Taller + Premium Look)
+======================= */
+/* =======================
+   Right-side Branding (Animated Modern Style)
+======================= */
+.branding {
+  position: absolute;
+  right: 6rem;
+  
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #ffffff;
+  text-align: left;
+  max-width: 520px;
+  font-family: "Poppins", sans-serif;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInBranding 1.4s ease-out 0.4s forwards;
+}
+
+/* Heading */
+.branding .tagline {
+  font-size: 2rem;
+  font-weight: 800;
+  font-family:"Nanum Gothic Coding", monospace;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpText 1.3s ease-out 0.6s forwards;
+}
+
+.branding .highlight {
+  color: #c7ff48; /* Neon lime highlight */
+}
+
+/* Paragraph */
+.branding .subtext {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+  max-width: 450px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpText 1.3s ease-out 0.8s forwards;
+}
+
+/* Email form */
+.cta-form {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  width: 420px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUpText 1.3s ease-out 1s forwards;
+}
+
+.email-input {
+  flex: 1;
+  padding: 1rem 1.2rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.email-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Button */
+.cta-button {
+  background: #c7ff48;
+  border: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem 1.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.cta-button:hover {
+  background: #d4ff6e;
+  transform: translateY(-2px);
+}
+
+/* =======================
+   Animations
+======================= */
+@keyframes fadeInBranding {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUpText {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .branding {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    text-align: center;
+    max-width: 90%;
+    margin: 3rem auto 0;
+  }
+
+  .branding .tagline {
+    font-size: 2.3rem;
+  }
+
+  .branding .subtext {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .branding .tagline {
+    font-size: 1.8rem;
+  }
+
+  .branding .subtext {
+    font-size: 0.95rem;
+  }
+
+  .cta-form {
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .email-input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    border-radius: 0;
+  }
+}
+

@@ -1,0 +1,12 @@
+.footer {
+  position: relative;        /* ensures it's in normal page flow */
+  z-index: 5;                /* above the video background */
+  width: 100%;               /* make it span the full width */
+  padding: 1.5rem 0;
+  text-align: center;
+  color: #bbb;
+  font-size: 0.85rem;
+  border-top: 1px solid #111;
+  background-color: rgba(0, 0, 0, 0.8); /* visible over video */
+  backdrop-filter: blur(5px);            /* glass-like effect (optional) */
+}
