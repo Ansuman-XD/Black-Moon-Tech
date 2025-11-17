@@ -3,375 +3,234 @@
 ======================= */
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+
+
 /* =======================
-   Fullscreen Hero Section
+   HERO BASE
 ======================= */
 .hero {
   position: relative;
   height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  width: 100%;
+  overflow: visible;
   display: flex;
-  justify-content: flex-start; /* Align overlay to the left */
-  align-items: center; /* Center vertically */
-  text-align: left;
-  padding-left: 20rem;
-  font-family: "Poppins", sans-serif;
+  align-items: center;
+  justify-content: center;
 }
 
-/* =======================
-   Fullscreen Video Background
-======================= */
+/* Background Video */
 .video-bg {
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 13px;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: 0;
 }
 
-/* =======================
-   Dark Transparent Overlay Layer
-======================= */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  z-index: 1;
+/* Main Content Wrapper (fixes overlapping) */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  width: 90%;
+  max-width: 1600px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+   gap: 13rem;
 }
 
 /* =======================
-   Glass Overlay Content
+   LEFT GLASS CARD
 ======================= */
 .overlay {
-  position: relative;
-  z-index: 2;
-  color: #fff;
-  max-width: 700px;
-  margin-left: -10rem;
-  text-align: left;
-  padding: 2rem 2.5rem;
+  color: #fcfbfbff;
+  max-width: 600px;
+  padding: 2rem 2rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInGlass 1.8s ease-out forwards;
-  font-family: "Nanum Gothic Coding", monospace;
-  text-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
-}
-
-.overlay:hover {
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
-  transition: box-shadow 0.4s ease;
-}
-
-/* =======================
-   Text Styling
-======================= */
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 1.2rem;
-  color: #ffffff;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-  animation: fadeInText 2s ease-in-out 0.4s forwards;
-  opacity: 0;
-}
-
-.hero-subtitle {
-  font-size: 1.1rem;
-  color: #d1d1d1;
+  font-family: "Shadows Into Light", cursive;
+  font-style: normal;
   font-weight: 400;
-  margin-bottom: 2rem;
-  line-height: 1.6;
-  animation: fadeInText 2s ease-in-out 0.7s forwards;
-  opacity: 0;
+  animation: fadeInGlass 1.8s ease-out forwards;
 }
 
-/* =======================
-   Buttons
-======================= */
+/* Title */
+.hero-title {
+  font-size: 3.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 1.5s ease-out 0.5s forwards;
+}
+
+/* Buttons */
 .hero-buttons {
   display: flex;
   gap: 1rem;
-  animation: fadeInText 2s ease-in-out 1s forwards;
   opacity: 0;
+  animation: fadeUp 1.5s ease-out 0.8s forwards;
 }
 
 .btn {
-  border: none;
   padding: 12px 26px;
-  border-radius: 10px;
   font-size: 1.2rem;
   font-weight: 600;
-  transition: all 0.3s;
+  border-radius: 10px;
   cursor: pointer;
+  border: none;
 }
 
 .btn-light {
-  background-color: #fff;
+  background: #fff;
   color: #000;
 }
 
 .btn-dark {
-  background-color: transparent;
+  background: transparent;
   color: #fff;
   border: 1px solid #fff;
 }
 
-.btn-light:hover {
-  background-color: #eaeaeaff;
-}
-
 .btn-dark:hover {
-  background-color: #fff;
+  background: #fff;
   color: #000;
 }
 
 /* =======================
-   Animations
-======================= */
-@keyframes fadeInGlass {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-    backdrop-filter: blur(0);
-  }
-  60% {
-    opacity: 0.7;
-    transform: translateY(10px);
-    backdrop-filter: blur(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    backdrop-filter: blur(8px);
-  }
-}
-
-@keyframes fadeInText {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =======================
-   Responsive Design
-======================= */
-@media (max-width: 768px) {
-  .hero {
-    justify-content: center;
-    padding: 0 1.5rem;
-    text-align: center;
-  }
-
-  .overlay {
-    margin-left: 2rem;
-    max-width: 90%;
-  }
-
-  .hero-title {
-    font-size: 2.4rem;
-  }
-
-  .btn {
-    font-size: 1rem;
-  }
-}
-
-/* =======================
-   Right-side Branding (NEW)
-======================= */
-/* =======================
-   Right-side Branding (Dark + Glass)
-   Replace previous .branding rules with this
- /* =======================
-   Right-side Branding (Taller + Premium Look)
-======================= */
-/* =======================
-   Right-side Branding (Animated Modern Style)
+   RIGHT SIDE BRANDING
 ======================= */
 .branding {
-  position: absolute;
-  right: 6rem;
-  
-  transform: translateY(-50%);
-  z-index: 2;
-  color: #ffffff;
-  text-align: left;
-  max-width: 520px;
-  font-family: "Poppins", sans-serif;
+  max-width: 400px;
+  color: #fff;
   opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInBranding 1.4s ease-out 0.4s forwards;
+  animation: fadeUp 1.5s ease-out 0.7s forwards;
+  
 }
 
 /* Heading */
 .branding .tagline {
-  font-size: 2rem;
-  font-weight: 800;
-  font-family:"Nanum Gothic Coding", monospace;
+  font-size: 1.5rem;
+  /* font-weight: 1000; */
   line-height: 1.1;
-  color: #ffffff;
-  margin-bottom: 1.5rem;
+  /* font-family: "Nanum Gothic Coding", monospace; */
+   font-family: "Shadows Into Light", cursive;
+  font-style: normal;
+  font-weight:600;
+  margin-top:3rem;
+  margin-bottom: 1rem;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUpText 1.3s ease-out 0.6s forwards;
+  animation: fadeUp 1.5s ease-out 1s forwards;
 }
 
-.branding .highlight {
-  color: #c7ff48; /* Neon lime highlight */
+.highlight {
+  color: #c7ff48;
 }
 
 /* Paragraph */
-.branding .subtext {
+.subtext {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 2rem;
   line-height: 1.7;
-  max-width: 450px;
+  margin-bottom: 1rem;
+  font-family: "Shadows Into Light", cursive;
+  font-style: normal;
+  font-weight: 400;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUpText 1.3s ease-out 0.8s forwards;
+  animation: fadeUp 1.5s ease-out 1.3s forwards;
 }
 
-/* Email form */
+/* Input Form */
 .cta-form {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   overflow: hidden;
-  width: 420px;
+  max-width: 420px;
+  width: 100%;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUpText 1.3s ease-out 1s forwards;
+  animation: fadeUp 1.5s ease-out 1.6s forwards;
 }
 
 .email-input {
   flex: 1;
   padding: 1rem 1.2rem;
   border: none;
-  outline: none;
   background: transparent;
   color: #fff;
-  font-size: 1rem;
 }
 
-.email-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* Button */
 .cta-button {
-  background: #c7ff48;
+  background:linear-gradient(90deg, #ff5dcc, #ffc26b);;
+  padding: 1rem 1.8rem;
   border: none;
   color: #000;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 1rem 1.8rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
 }
 
 .cta-button:hover {
   background: #d4ff6e;
-  transform: translateY(-2px);
 }
 
 /* =======================
-   Animations
+   ANIMATIONS
 ======================= */
-@keyframes fadeInBranding {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  60% {
-    opacity: 0.8;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes fadeInGlass {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeUpText {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(25px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive adjustments */
+/* =======================
+   RESPONSIVE FIXES
+======================= */
+
+/* Tablets */
 @media (max-width: 992px) {
-  .branding {
-    position: relative;
-    top: auto;
-    right: auto;
-    transform: none;
+  .hero-content {
+    flex-direction: column;
     text-align: center;
-    max-width: 90%;
-    margin: 3rem auto 0;
+    gap: 3rem;
+    margin-top: 3rem;
   }
 
-  .branding .tagline {
-    font-size: 2.3rem;
-  }
-
-  .branding .subtext {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+  .overlay,
+  .branding {
+    max-width: 95%;
   }
 
   .cta-form {
-    width: 100%;
-    max-width: 400px;
     margin: 0 auto;
   }
 }
 
-@media (max-width: 480px) {
-  .branding .tagline {
-    font-size: 1.8rem;
+/* Mobiles */
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 2.4rem;
   }
 
-  .branding .subtext {
-    font-size: 0.95rem;
+  .branding .tagline {
+    font-size: 1.7rem;
   }
 
   .cta-form {
     flex-direction: column;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .email-input {
-    width: 100%;
-    padding: 0.9rem 1rem;
   }
 
   .cta-button {
     width: 100%;
-    border-radius: 0;
   }
 }
-

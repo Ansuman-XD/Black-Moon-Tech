@@ -1,0 +1,128 @@
+/* ===========================================
+   ⚡ Neon Tech Grid With Rotating Icons
+=========================================== */
+
+.techstack-section {
+  padding: 60px 20px;
+  background: #0b0b0f;
+  margin-top: 40px;
+}
+
+.tech-title {
+  text-align: center;
+  font-size: 2.3rem;
+  font-family: "Shadows Into Light", cursive;
+  font-weight: 800;
+  background: linear-gradient(90deg, #eeeeeeff, #faf7f1ff);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 30px;
+}
+
+.section-subtitle {
+  font-size: 1.4rem;
+  color: #ffdcee;
+  margin-bottom: 18px;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 80, 160, 0.4);
+}
+
+/* ===========================
+   GRID
+=========================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+}
+
+/* ===========================
+   CARD WITH ICON
+=========================== */
+.icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+
+.icon-card:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 0 20px rgba(255, 80, 160, 0.35);
+  border-color: rgba(255, 100, 200, 0.5);
+}
+
+/* ===========================
+   ICON ROTATION
+=========================== */
+
+.tech-icon {
+  width: 48px;
+  height: 48px;
+  filter: drop-shadow(0 0 6px rgba(255, 120, 220, 0.5));
+}
+
+/* Continuous rotation */
+.rotate {
+  animation: spin 4.5s linear infinite;
+}
+
+/* Hover pause */
+.icon-card:hover .rotate {
+  animation-play-state: paused;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Label */
+.tech-label {
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-shadow: 0 0 8px rgba(255, 188, 250, 0.4);
+}
+
+/* Fade-in animation */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s ease forwards;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .tech-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .tech-label {
+    font-size: 0.85rem;
+  }
+}

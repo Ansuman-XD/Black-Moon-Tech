@@ -143,3 +143,10 @@ body, html {
     transform: translateY(0); /* End position */
   }
 }
+.lazy-loader {
+  text-align: center;
+  color: white;
+  padding: 40px 0;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
