@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import TechStack from "./components/TechStack";
 import TrustSection from "./components/TrustSection";
+import Projects from "./components/Projects";
 // Lazy load the Services component
 const Services = lazy(() => import("./components/Services"));
 
@@ -28,9 +29,12 @@ function App() {
         <Services />
       </Suspense>
 
+      <Projects></Projects>
+
       <TrustSection></TrustSection>
  {/* ✅ NEW: Tech Stack Section placed right after Services */}
       <TechStack />
+        
       {/* Footer Section */}
       <Footer />
     </>
