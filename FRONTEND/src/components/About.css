@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+
+
+
+/* ==========================================================================
+   ABOUT.CSS
+   Smooth-scroll, Scroll-Float, Pop on nav-click, Hover-active styling
+   Drop into your project and import in About.jsx
+   ========================================================================== */
+
+/* ---------------------------
+   Theme variables
+   --------------------------- */
+:root {
+  --lime: #eb2b2be8;
+  --glass-bg: rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.12);
+  --muted: rgba(255,255,255,0.75);
+  --soft-text: rgba(255,255,255,0.88);
+  --max-width: 1300px;
+}
+
+/* ---------------------------
+   Section wrapper
+   --------------------------- */
+.about-section {
+  padding: 5.5rem 8rem;
+  color: #fff;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  overflow: visible;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------
+   Top & bottom neon divider lines
+   --------------------------- */
+.about-divider {
+  width: 100%;
+  height: 2px;
+  background: radial-gradient(circle, var(--lime), transparent 65%);
+  filter: blur(2px);
+  opacity: 0.68;
+  animation: dividerPulse 3s ease-in-out infinite;
+}
+.about-divider.top { margin-bottom: 3rem; }
+.about-divider.bottom { margin-top: 3.8rem; }
+@keyframes dividerPulse { 0%{opacity:0.35}50%{opacity:1}100%{opacity:0.35} }
+
+/* ---------------------------
+   Container layout (2-column on desktop)
+   --------------------------- */
+.about-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  gap: 3.5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  transition: transform 420ms cubic-bezier(.2,.9,.2,1), filter 420ms ease;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+}
+
+/* ---------------------------
+   Hover-active state (applied briefly on nav-click or mouseenter)
+   - triggers soft glow, slight panel pop and accent overlay
+   --------------------------- */
+.about-section.hover-active .about-container {
+  filter: saturate(1.06) drop-shadow(0 12px 30px rgba(0,0,0,0.6));
+}
+.about-section.hover-active .about-glass {
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 26px 70px rgba(0,0,0,0.72);
+  transform: translateZ(0) translateY(-6px) scale(1.004);
+}
+.about-section.hover-active .about-points li {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.08);
+}
+.about-section.hover-active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.015), rgba(199,255,72,0.01), rgba(255,255,255,0.01));
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+  transition: opacity 420ms ease;
+}
+
+/* ---------------------------
+   Left column: text content
+   --------------------------- */
+.about-left { flex: 1; max-width: 720px; transform: translateZ(0); transition: transform 380ms cubic-bezier(.2,.9,.2,1); }
+
+.about-label {
+  font-size: 0.88rem;
+  color: var(--muted);
+  letter-spacing: 3px;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.about-heading {
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.03;
+  margin: 0 0 1rem 0;
+}
+
+/* ---------------------------
+   Scroll-Float text style (character-level)
+   --------------------------- */
+.scroll-float {
+  display: inline-block;
+  white-space: nowrap;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Each character span */
+.scroll-float .sf-char {
+  display: inline-block;
+  transition: transform 380ms cubic-bezier(.2,.9,.2,1), opacity 320ms ease;
+  margin-right: -0.02em;
+  padding: 0 0.02em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+
+/* Make real spaces less visible but keep layout */
+.scroll-float .sf-char[aria-hidden="true"] { opacity: 0.06; }
+
+/* Hover micro-wave on desktop */
+@media (hover: hover) and (pointer: fine) {
+  .about-heading.scroll-floating:hover .sf-char:nth-child(odd)  { transform: translateY(-6px); }
+  .about-heading.scroll-floating:hover .sf-char:nth-child(even) { transform: translateY(6px); }
+}
+
+/* Nav-click fallback class (JS adds .sf-pop briefly) */
+.scroll-float.sf-pop .sf-char {
+  transform: translateY(-8px) !important;
+  opacity: 1 !important;
+}
+
+/* Shorter transitions on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .scroll-float .sf-char { transition-duration: 240ms; }
+}
+
+/* Wrap on very small screens */
+@media (max-width: 480px) {
+  .scroll-float { white-space: normal; display: inline; }
+  .scroll-float .sf-char { margin-right: 0; padding: 0 0.01em; }
+}
+
+/* ---------------------------
+   Description and Points
+   --------------------------- */
+.about-text {
+  font-size: 1.06rem;
+  color: var(--soft-text);
+  line-height: 1.66;
+  margin-bottom: 1.3rem;
+}
+
+.about-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.4rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.about-points li {
+  padding: 12px 14px;
+  background: var(--glass-bg);
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(6px);
+  font-weight: 600;
+  transition: transform .28s ease, box-shadow .28s ease, background .28s ease;
+}
+
+/* Hover for points on desktop */
+@media (hover: hover) and (pointer: fine) {
+  .about-points li:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,0.09);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.45);
+  }
+}
+
+/* ---------------------------
+   Stats boxes
+   --------------------------- */
+.about-stats { display: flex; gap: 1.1rem; margin-top: 1.6rem; flex-wrap: wrap; }
+
+.stat-box {
+  min-width: 110px;
+  padding: 0.95rem 1.2rem;
+  background: var(--glass-bg);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  text-align: center;
+  transition: transform .32s ease, box-shadow .32s ease;
+}
+
+.stat-num { font-size: 1.9rem; font-weight: 800; color: var(--lime); margin: 0; }
+.stat-label { font-size: 0.9rem; color: var(--muted); margin-top: 6px; }
+
+/* Hover for stats */
+@media (hover: hover) and (pointer: fine) {
+  .stat-box:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.56);
+  }
+}
+
+/* ---------------------------
+   Right column: glass card and features
+   --------------------------- */
+.about-right { width: 420px; max-width: 42%; position: relative; transform: translateZ(0); transition: transform .38s cubic-bezier(.2,.9,.2,1); }
+
+.about-glass {
+  padding: 1.6rem;
+  border-radius: 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.62);
+  transition: transform .38s ease, box-shadow .38s ease, background .3s ease;
+}
+
+.glass-title { font-size: 1.35rem; font-weight: 800; margin-bottom: 0.45rem; color: #fff; }
+.glass-sub { font-size: 0.95rem; color: var(--muted); margin-bottom: 12px; }
+
+/* Hover for glass */
+@media (hover: hover) and (pointer: fine) {
+  .about-glass:hover { transform: translateY(-10px); box-shadow: 0 24px 58px rgba(0,0,0,0.7); }
+}
+
+/* Feature list style */
+.feature-list { display: flex; flex-direction: column; gap: 0.9rem; }
+
+.feature-item {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: transform .32s ease, box-shadow .32s ease, background .32s ease;
+}
+
+.feature-icon { width: 36px; height: 36px; background: var(--lime); border-radius: 8px; box-shadow: 0 0 18px rgba(199,255,72,0.44); }
+
+/* Hover for feature items */
+@media (hover: hover) and (pointer: fine) {
+  .feature-item:hover { transform: translateY(-6px); background: rgba(255,255,255,0.08); box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
+}
+
+/* ---------------------------
+   Neon decorative circle
+   --------------------------- */
+.about-neon {
+  position: absolute;
+  right: -18px;
+  top: -16px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(199,255,72,0.22), transparent 70%);
+  filter: blur(8px);
+  animation: floatNeon 6s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+@keyframes floatNeon { 0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)} }
+
+/* ---------------------------
+   Responsive rules
+   --------------------------- */
+@media (max-width: 1100px) {
+  .about-section { padding: 4.2rem 3.6rem; }
+  .about-heading { font-size: 2.2rem; }
+  .about-right { width: 380px; }
+  .about-neon { width: 100px; height: 100px; right: -12px; top: -10px; }
+}
+
+@media (max-width: 880px) {
+  .about-section { padding: 3.5rem 2rem; text-align: center; }
+  .about-container { flex-direction: column-reverse; align-items: center; gap: 2rem; }
+  .about-left { max-width: 860px; width: 100%; }
+  .about-right { width: 100%; max-width: 520px; display: flex; justify-content: center; }
+  .about-points { grid-template-columns: 1fr; }
+  .about-neon { right: 6%; top: -38px; opacity: 0.85; }
+  .feat-desc { display: none; }
+}
+
+@media (max-width: 480px) {
+  .about-section { padding: 2.4rem 1.1rem; }
+  .about-heading { font-size: 1.8rem; }
+  .about-text { font-size: 1rem; }
+  .about-glass { padding: 1.1rem; border-radius: 12px; }
+  .about-neon { display: none; }
+  .stat-num { font-size: 1.4rem; }
+  .about-points li { padding: 10px 12px; border-radius: 10px; }
+}
+
+@media (max-width: 360px) {
+  .about-heading { font-size: 1.5rem; }
+}
+
+/* ---------------------------
+   Accessibility: prefers-reduced-motion
+   --------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-float .sf-char { transition: none !important; transform: none !important; opacity: 1 !important; }
+  .about-container, .about-glass, .about-points li, .feature-item, .stat-box { transition: none !important; transform: none !important; animation: none !important; }
+}
+
+/* ---------------------------
+   Utilities / smoothing
+   --------------------------- */
+* { transition-timing-function: cubic-bezier(.2,.9,.2,1); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
