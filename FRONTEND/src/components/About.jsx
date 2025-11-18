@@ -1,311 +1,283 @@
+// AboutNew.jsx
 import React, { useEffect, useRef, useState } from "react";
 import "./About.css";
 
-/**
- * ScrollFloatText
- * - Splits text into chars and applies subtle translateY while in viewport.
- * - Exposes a pop animation by adding class .sf-pop (JS triggers it).
- */
-const ScrollFloatText = ({ text = "", intensity = 36, className = "" }) => {
-  const rootRef = useRef(null);
-  const rafRef = useRef(null);
-  const inViewRef = useRef(false);
-  const chars = Array.from(text);
+const IDLE_TIMEOUT = 400;
 
-  // update positions based on viewport position
-  const update = () => {
-    const el = rootRef.current;
-    if (!el || !inViewRef.current) return;
-    const rect = el.getBoundingClientRect();
-    const viewportH = window.innerHeight || document.documentElement.clientHeight;
-    const rel = ((rect.top + rect.height / 2) - viewportH / 2) / (viewportH / 2);
-    const clamped = Math.max(-1.2, Math.min(1.2, rel));
-    const spans = el.querySelectorAll(".sf-char");
-    spans.forEach((sp, i) => {
-      const dir = (i % 2 === 0) ? 1 : -1;
-      const idxMul = (i / spans.length) * 1.6 + 0.12;
-      const y = clamped * intensity * dir * idxMul;
-      sp.style.transform = `translateY(${y}px)`;
-      sp.style.opacity = `${1 - Math.min(Math.abs(clamped) * 0.55, 0.55)}`;
-    });
-  };
+export default function AboutNew() {
+  const heroRef = useRef(null);
+  const containerRef = useRef(null);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [typed, setTyped] = useState("");
+  const [mounted, setMounted] = useState(false);
+  const [replayTyping, setReplayTyping] = useState(false);
+  const [isMobileListMode, setIsMobileListMode] = useState(false);
+  const [centeredIndex, setCenteredIndex] = useState(0);
+  const fullIntro = "We design living interfaces — fast, bold, adaptive.";
 
-  const loop = () => {
-    update();
-    rafRef.current = requestAnimationFrame(loop);
-  };
-
+  // Typing (runs after lazy init)
   useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        inViewRef.current = entry.isIntersecting;
-        if (inViewRef.current) {
-          if (!rafRef.current) rafRef.current = requestAnimationFrame(loop);
-        } else {
-          if (rafRef.current) {
-            cancelAnimationFrame(rafRef.current);
-            rafRef.current = null;
-          }
-          // reset transforms on leave
-          const spans = el.querySelectorAll(".sf-char");
-          spans.forEach(sp => { sp.style.transform = ""; sp.style.opacity = ""; });
-        }
-      });
-    }, { threshold: [0, 0.15, 0.5] });
+    if (!replayTyping) return;
+    let idx = 0;
+    setTyped("");
+    const id = setInterval(() => {
+      idx += 1;
+      setTyped(fullIntro.slice(0, idx));
+      if (idx >= fullIntro.length) clearInterval(id);
+    }, 28);
+    return () => clearInterval(id);
+  }, [replayTyping]);
 
-    io.observe(el);
-    window.addEventListener("resize", update, { passive: true });
-
-    return () => {
-      io.disconnect();
-      window.removeEventListener("resize", update);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  // Lazy mount when hero in view & idle
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) {
+      const t = setTimeout(() => {
+        setMounted(true);
+        setReplayTyping(true);
+      }, 600);
+      return () => clearTimeout(t);
+    }
+    let idleHandle;
+    const onIdle = () => {
+      setTimeout(() => {
+        setMounted(true);
+        setReplayTyping(true);
+      }, 120);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // pop animation: add class .sf-pop on container to trigger CSS fallback + optional inline stagger
-  const popOnce = () => {
-    const el = rootRef.current;
-    if (!el) return;
-    // set per-character transition delays via style attribute for a nice sweep
-    const spans = el.querySelectorAll(".sf-char");
-    spans.forEach((sp, i) => {
-      sp.style.transition = `transform 520ms cubic-bezier(.2,.9,.2,1) ${i * 12}ms, opacity 420ms ease ${i * 12}ms`;
-      sp.style.transform = `translateY(-12px)`;
-      sp.style.opacity = "1";
-    });
-    // then reset after
-    setTimeout(() => {
-      spans.forEach((sp) => {
-        sp.style.transform = "";
-        sp.style.transition = "";
-      });
-      // briefly use the CSS fallback class for extra visual consistency
-      el.classList.add("sf-pop");
-      setTimeout(() => el.classList.remove("sf-pop"), 820);
-    }, 720);
-  };
-
-  // expose pop function on the element for parent to call if needed
-  useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
-    el.__popOnce = popOnce;
-    return () => { if (el) el.__popOnce = undefined; };
-  }, []);
-
-  return (
-    <div ref={rootRef} className={`scroll-float ${className}`}>
-      {chars.map((ch, i) => (
-        <span key={i} className="sf-char" aria-hidden={ch === " "}>
-          {ch === " " ? "\u00A0" : ch}
-        </span>
-      ))}
-    </div>
-  );
-};
-
-/**
- * About component
- * - Smooth-scrolls on nav click
- * - Triggers pop animation on nav click
- * - Animates counters when section scrolls into view
- * - Adds short hover-active state on nav-click for visual "re-render" pop
- */
-const About = () => {
-  const sectionRef = useRef(null);
-  const scrollFloatRef = useRef(null); // will point to the DOM node with .scroll-float
-  const [clients, setClients] = useState(0);
-  const [projects, setProjects] = useState(0);
-  const [reach, setReach] = useState(0);
-
-  // counters: animate once when About enters viewport
-  useEffect(() => {
-    let mounted = true;
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const easeUp = (target, setter, duration = 1000) => {
-            const start = Date.now();
-            const tick = () => {
-              const now = Date.now();
-              const progress = Math.min((now - start) / duration, 1);
-              const value = Math.round(target * (1 - Math.pow(1 - progress, 3)));
-              if (mounted) setter(value);
-              if (progress < 1) requestAnimationFrame(tick);
-            };
-            tick();
-          };
-          easeUp(120, setClients, 1200);
-          setTimeout(() => easeUp(48, setProjects, 1000), 160);
-          setTimeout(() => easeUp(320, setReach, 1400), 340);
-          io.disconnect();
-        }
-      });
-    }, { threshold: 0.25 });
-
-    if (sectionRef.current) io.observe(sectionRef.current);
-    return () => { mounted = false; io.disconnect(); };
-  }, []);
-
-  // Handle nav clicks: smooth scroll + pop + hover-active flash
-  useEffect(() => {
-    const navLinks = Array.from(document.querySelectorAll('a[href="#about"]'));
-
-    const handler = (e) => {
-      // prevent default so we can control scroll timing precisely
-      e.preventDefault();
-
-      // smooth scroll to About
-      if (sectionRef.current) {
-        sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-
-      // after a short delay (allow scroll), trigger pop animation and hover-active flash
-      const doPop = () => {
-        const sf = document.querySelector("#about .scroll-float");
-        const aboutEl = document.getElementById("about");
-        // pop chars via function if available
-        if (sf && sf.__popOnce) {
-          try { sf.__popOnce(); } catch (err) { /* ignore */ }
-        } else if (sf) {
-          // fallback: add CSS class that triggers CSS fallback animation
-          sf.classList.add("sf-pop");
-          setTimeout(() => sf.classList.remove("sf-pop"), 900);
-        }
-
-        // add hover-active to section for short visual pop
-        if (aboutEl) {
-          aboutEl.classList.add("hover-active");
-          setTimeout(() => aboutEl.classList.remove("hover-active"), 720);
-        }
+    const idleCb =
+      window.requestIdleCallback ||
+      function (cb) {
+        return setTimeout(cb, IDLE_TIMEOUT);
       };
-
-      // delay is tuned to match smooth scroll timing on most devices
-      setTimeout(doPop, 350);
-    };
-
-    navLinks.forEach(lnk => lnk.addEventListener("click", handler));
-    return () => navLinks.forEach(lnk => lnk.removeEventListener("click", handler));
-  }, []);
-
-  // Also play a small pop when user reaches the section by scrolling directly (IntersectionObserver)
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // call pop on float text
-          const sf = document.querySelector("#about .scroll-float");
-          if (sf && sf.__popOnce) {
-            try { sf.__popOnce(); } catch (err) {}
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            idleHandle = idleCb(onIdle, { timeout: 1000 });
           }
-          // small visual accent
-          el.classList.add("hover-active");
-          setTimeout(() => el.classList.remove("hover-active"), 900);
-          io.disconnect();
-        }
-      });
-    }, { threshold: 0.35 });
-
-    io.observe(el);
-    return () => io.disconnect();
+        });
+      },
+      { threshold: 0.15 }
+    );
+    obs.observe(hero);
+    return () => {
+      obs.disconnect();
+      if (window.cancelIdleCallback) window.cancelIdleCallback(idleHandle);
+      else clearTimeout(idleHandle);
+    };
   }, []);
 
-  // helper: attach ref to the DOM .scroll-float container after mount
+  // Determine mobile list mode
   useEffect(() => {
-    const sf = document.querySelector("#about .scroll-float");
-    if (sf) scrollFloatRef.current = sf;
+    const checkMode = () => {
+      setIsMobileListMode(window.innerWidth <= 980);
+    };
+    checkMode();
+    window.addEventListener("resize", checkMode);
+    return () => window.removeEventListener("resize", checkMode);
   }, []);
+
+  // Card centering observer (used for mobile mode)
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const children = Array.from(container.querySelectorAll(".ng-card"));
+    if (!children.length) return;
+
+    // If not mobile mode, clear centered classes & state
+    if (!isMobileListMode) {
+      children.forEach((c) => c.classList.remove("centered"));
+      setCenteredIndex(0);
+      return;
+    }
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        // Choose entry with greatest intersectionRatio
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (!visible.length) return;
+        let best = visible[0];
+        visible.forEach((e) => {
+          if (e.intersectionRatio > best.intersectionRatio) best = e;
+        });
+        children.forEach((c) => c.classList.remove("centered"));
+        const idx = children.indexOf(best.target);
+        if (idx >= 0) {
+          best.target.classList.add("centered");
+          setCenteredIndex(idx);
+        }
+      },
+      { root: container, threshold: [0.4, 0.6, 0.75] }
+    );
+
+    children.forEach((c) => obs.observe(c));
+    return () => obs.disconnect();
+  }, [isMobileListMode, mounted]);
+
+  // Mouse parallax for hero
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const onMove = (e) => {
+      const rect = el.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const x = (clientX - (rect.left + rect.width / 2)) / rect.width;
+      const y = (clientY - (rect.top + rect.height / 2)) / rect.height;
+      setMouse({ x, y });
+    };
+    el.addEventListener("mousemove", onMove);
+    el.addEventListener("touchmove", onMove, { passive: true });
+    return () => {
+      el.removeEventListener("mousemove", onMove);
+      el.removeEventListener("touchmove", onMove);
+    };
+  }, []);
+
+  // Card hover handlers (tilt + sheen)
+  const onCardMouseMove = (e) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const rx = (py - 0.5) * -10;
+    const ry = (px - 0.5) * 14;
+    el.style.setProperty("--rx", `${rx}deg`);
+    el.style.setProperty("--ry", `${ry}deg`);
+    el.style.setProperty("--sx", `${(px - 0.5) * 90}px`);
+    el.style.setProperty("--sy", `${(py - 0.5) * 90}px`);
+    el.style.setProperty("--sheenX", `${px * 100}%`);
+    el.style.setProperty("--sheenY", `${py * 100}%`);
+    el.classList.add("hovered");
+  };
+  const onCardLeave = (e) => {
+    const el = e.currentTarget;
+    el.style.setProperty("--rx", `0deg`);
+    el.style.setProperty("--ry", `0deg`);
+    el.style.setProperty("--sx", `0px`);
+    el.style.setProperty("--sy", `0px`);
+    el.style.setProperty("--sheenX", `50%`);
+    el.style.setProperty("--sheenY", `50%`);
+    el.classList.remove("hovered");
+  };
+
+  const tx = Math.round(mouse.x * 8);
+  const ty = Math.round(mouse.y * 5);
+
+  // cards
+  const cards = [
+    { title: "Motion Systems", text: "Micro-interactions and motion language that guide attention and delight.", tag: "Motion" },
+    { title: "Adaptive UI", text: "Layouts that reshape themselves to content, device, and user intent.", tag: "Adaptive" },
+    { title: "AI Workflows", text: "Smart pipelines that automate repetitive tasks while keeping humans in control.", tag: "AI" },
+    { title: "Accessibility", text: "Design that includes — color, contrast, voice, and reduced-motion-first patterns.", tag: "A11y" },
+    { title: "Performance", text: "Optimized builds, cache strategies and 60 FPS-first animations.", tag: "Fast" },
+    { title: "Design Ops", text: "Component systems, tokens, and pipelines that scale design across teams.", tag: "DesignOps" },
+  ];
+
+  // Scroll to card by index smoothly
+  const scrollToIndex = (i) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const children = Array.from(container.querySelectorAll(".ng-card"));
+    const idx = Math.max(0, Math.min(i, children.length - 1));
+    const child = children[idx];
+    if (!child) return;
+    // align child center within container
+    const containerRect = container.getBoundingClientRect();
+    const childRect = child.getBoundingClientRect();
+    const offset = (childRect.left + childRect.width / 2) - (containerRect.left + containerRect.width / 2);
+    container.scrollBy({ left: offset, behavior: "smooth" });
+  };
+
+  const scrollPrev = () => scrollToIndex(centeredIndex - 1);
+  const scrollNext = () => scrollToIndex(centeredIndex + 1);
 
   return (
-    <section id="about" className="about-section" ref={sectionRef} aria-label="About Black Moon">
-      {/* top glow line */}
-      <div className="about-divider top" />
+    <main className="ng-about">
+      <section className={`ng-hero ${mounted ? "mounted" : "placeholder"}`} ref={heroRef} aria-label="About hero">
+        <div className="ng-hero-inner" style={{ transform: `translate3d(${tx}px, ${ty}px, 0)` }}>
+          <h1 className="ng-title" aria-label="We design living interfaces">
+            <span className="ng-title-main">Designing</span>
+            <span className="ng-title-accent">the next generation</span>
+          </h1>
 
-      <div className="about-container">
-        <div className="about-left">
-          <div className="about-label">ABOUT</div>
-
-          <h2 className="about-heading">
-            {/* ScrollFloatText does the char splitting + in-view float */}
-            <ScrollFloatText text={"Who We Are — The Black Moon Vision"} className="about-heading scroll-floating" intensity={34} />
-          </h2>
-
-          <p className="about-text">
-            We build modern Web experiences with AI-driven innovation, automation,
-            and beautiful UI. From Odisha to the world — we empower brands with
-            technology, creativity, and futuristic digital solutions.
+          <p className="ng-vision">
+            Our vision is to create digital products that feel human — elegant, fast, and meaningful.
+            We build systems that help people do more with less friction and that scale across devices and cultures.
           </p>
 
-          <ul className="about-points" aria-hidden={false}>
-            <li>AI-Powered Digital Products</li>
-            <li>Clean & Modern UI/UX Design</li>
-            <li>Fast and Scalable Web Systems</li>
-            <li>Automation for Business Workflow</li>
-          </ul>
+          <p className="ng-intro" aria-live="polite">
+            {mounted ? <span className="typed">{typed}</span> : <span className="shimmer-line short" />}
+            <span className="cursor" aria-hidden />
+          </p>
+        </div>
+      </section>
 
-          <div className="about-stats">
-            <div className="stat-box">
-              <div className="stat-num">{clients}+</div>
-              <div className="stat-label">Clients</div>
-            </div>
-
-            <div className="stat-box">
-              <div className="stat-num">{projects}+</div>
-              <div className="stat-label">Projects</div>
-            </div>
-
-            <div className="stat-box">
-              <div className="stat-num">{reach}K</div>
-              <div className="stat-label">Monthly Reach</div>
-            </div>
-          </div>
+      <section className="ng-content">
+        {/* mobile arrows (only visible in CSS at mobile sizes) */}
+        <div className="mobile-nav" aria-hidden={!isMobileListMode}>
+          <button className="mobile-arrow left" onClick={scrollPrev} aria-label="Previous card">‹</button>
+          <button className="mobile-arrow right" onClick={scrollNext} aria-label="Next card">›</button>
         </div>
 
-        <div className="about-right">
-          <div className="about-glass">
-            <div className="glass-title">What We Do</div>
-            <div className="glass-sub">
-              We blend clean design, automation, AI and full-stack development to create products users love.
-            </div>
-
-            <div className="feature-list">
-              <div className="feature-item">
-                <div className="feature-icon" />
-                <div className="feature-content">
-                  <h4>AI Integrated Systems</h4>
-                </div>
+        <div className={`ng-container ${isMobileListMode ? "mobile" : "grid"}`} ref={containerRef} aria-live="polite" role="list">
+          {cards.map((c, i) => (
+            <article
+              key={c.title}
+              className={`ng-card ${mounted ? "reveal" : "skeleton"}`}
+              tabIndex={0}
+              onMouseMove={onCardMouseMove}
+              onMouseLeave={onCardLeave}
+              onFocus={(e) => e.currentTarget.classList.add("focus")}
+              onBlur={(e) => e.currentTarget.classList.remove("focus")}
+              style={{
+                transitionDelay: `${i * 90}ms`,
+                ["--rx"]: "0deg",
+                ["--ry"]: "0deg",
+                ["--sx"]: "0px",
+                ["--sy"]: "0px",
+                ["--sheenX"]: "50%",
+                ["--sheenY"]: "50%",
+              }}
+              aria-labelledby={`card-${i}-title`}
+              role="listitem"
+            >
+              <div className="ng-card-inner">
+                {mounted ? (
+                  <>
+                    <div className="ng-card-tag">{c.tag}</div>
+                    <h3 id={`card-${i}-title`} className="ng-card-title">{c.title}</h3>
+                    <p className="ng-card-copy">{c.text}</p>
+                  </>
+                ) : (
+                  <>
+                    <div className="shimmer-pill" />
+                    <div className="shimmer-line title" />
+                    <div className="shimmer-line copy" />
+                  </>
+                )}
               </div>
 
-              <div className="feature-item">
-                <div className="feature-icon" />
-                <div className="feature-content">
-                  <h4>Ultra Modern Web Apps</h4>
-                </div>
-              </div>
-
-              <div className="feature-item">
-                <div className="feature-icon" />
-                <div className="feature-content">
-                  <h4>Automation & Growth Tools</h4>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="about-neon" />
+              <div className="ng-sheen" aria-hidden style={{ left: "var(--sheenX)", top: "var(--sheenY)" }} />
+            </article>
+          ))}
         </div>
-      </div>
 
-      {/* bottom glow line */}
-      <div className="about-divider bottom" />
-    </section>
+        {/* mobile dots indicator */}
+        <div className="mobile-dots" role="tablist" aria-hidden={!isMobileListMode}>
+          {cards.map((_, i) => (
+            <button
+              key={i}
+              className={`dot ${centeredIndex === i ? "active" : ""}`}
+              onClick={() => scrollToIndex(i)}
+              aria-label={`Go to card ${i + 1}`}
+              aria-pressed={centeredIndex === i}
+              type="button"
+            />
+          ))}
+        </div>
+      </section>
+    </main>
   );
-};
-
-export default About;
+}
