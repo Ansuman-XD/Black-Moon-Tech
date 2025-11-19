@@ -41,7 +41,7 @@ function App() {
 
       <Projects></Projects>
 
-      <TrustSection></TrustSection>
+      
  {/* ✅ NEW: Tech Stack Section placed right after Services */}
       <TechStack />
         
@@ -50,8 +50,7 @@ function App() {
       <TrustSection />
 
       {/* ✅ NEW: Tech Stack Section placed right after Services */}
-      <TechStack />
-
+      
 
       {/* Footer Section */}
       <Footer />
