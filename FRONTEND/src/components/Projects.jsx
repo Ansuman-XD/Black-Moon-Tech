@@ -1,248 +1,146 @@
-// -----------------------------------------------------
-// BLACK MOON TECH — SUPER OPTIMIZED PROJECTS (SVG-safe)
-// -----------------------------------------------------
-import React, { useEffect, useRef, useState } from "react";
+// src/components/Projects.jsx
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import "./Projects.css";
+
+const PROJECTS = [
+  {
+    title: "Portfolio Website",
+    description: ["Modern React UI", "Responsive", "Neon Animations"],
+    image: "../public/AI Automation.avif",
+    link: "#",
+  },
+  {
+    title: "Weather App",
+    description: ["Live API", "Geo Location", "Dark UI"],
+    image: "weatherapp.svg",
+    link: "#",
+  },
+  {
+    title: "E-Commerce UI",
+    description: ["Filters", "Search", "UI Components"],
+    image: "ecommerce.svg",
+    link: "#",
+  },
+  {
+    title: "Black Moon Dashboard",
+    description: ["Charts", "Widgets", "Dark Theme"],
+    image: "blackmoon.svg",
+    link: "#",
+  },
+  {
+    title: "AI Chat Support",
+    description: ["OpenAI API", "Typing Effect"],
+    image: "ai.svg",
+    link: "#",
+  },
+];
 
 const Projects = () => {
   const wrapperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showProjects, setShowProjects] = useState(false);
+  const [show, setShow] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 600);
 
-  // -----------------------------------------------------
-  // PROJECT DATA (USE SVG IMAGES IN /public/images/)
-  // -----------------------------------------------------
-  const projectData = [
-    {
-      title: "Portfolio Website",
-      description: [
-        "A modern personal portfolio built using React with a neon UI theme.",
-        "Fully responsive design for desktop, tablet, and mobile.",
-        "Implemented scroll-triggered animations using GSAP."
-      ],
-      image: "portfolio.svg",
-      link: "#",
-    },
-    {
-      title: "Weather App",
-      description: [
-        "Real-time weather application using OpenWeather API.",
-        "Dynamic UI updates based on user input and location.",
-        "Dark-mode friendly neon UI."
-      ],
-      image: "weatherapp.svg",
-      link: "#",
-    },
-    {
-      title: "E-Commerce UI",
-      description: [
-        "Modern e-commerce UI built with React.",
-        "Product listings, filters, and search functionality.",
-        "Smooth hover effects and animations."
-      ],
-      image: "ecommerce.svg",
-      link: "#",
-    },
-    {
-      title: "UI Components Library",
-      description: [
-        "Reusable UI components library.",
-        "Contains buttons, cards, modals, sliders, and forms.",
-        "Fully responsive and customizable."
-      ],
-      image: "library.svg",
-      link: "#",
-    },
-    {
-      title: "Black Moon Dashboard",
-      description: [
-        "Futuristic neon dashboard UI with analytics widgets.",
-        "Dynamic charts and data tables.",
-        "Responsive and interactive layout."
-      ],
-      image: "blackmoon.svg",
-      link: "#",
-    },
-    {
-      title: "AI Chat Support System",
-      description: [
-        "AI-powered chat assistant built using React + OpenAI.",
-        "Typing animation and chat history support.",
-        "Designed in the Black Moon neon aesthetic."
-      ],
-      image: "ai.svg",
-      link: "#",
-    },
-    {
-      title: "Finance Tracker Dashboard",
-      description: [
-        "Track expenses and income visually with charts.",
-        "Category filters and advanced analytics.",
-        "Beautiful neon dashboard UI."
-      ],
-      image: "finance.svg",
-      link: "#",
-    },
-    {
-      title: "Task Manager App",
-      description: [
-        "Create, update, delete, and prioritize tasks.",
-        "Built using LocalStorage and React state.",
-        "Smooth GSAP animations for interactions."
-      ],
-      image: "task.svg",
-      link: "#",
-    },
-    {
-      title: "Music Player UI",
-      description: [
-        "Futuristic neon music player interface.",
-        "Custom audio controls using HTML5 Audio API.",
-        "Playlist support and animated waveform."
-      ],
-      image: "music.svg",
-      link: "#",
-    },
-  ];
-
-  // -----------------------------------------------------
-  // Lazy-render projects only when visible
-  // -----------------------------------------------------
+  // Resize handler
   useEffect(() => {
-    const section = document.getElementById("projects");
+    const onResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
-    const observer = new IntersectionObserver(
+  // Reveal animation trigger
+  useEffect(() => {
+    const sec = document.getElementById("projects");
+    if (!sec) return;
+
+    const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setShowProjects(true);
-          observer.disconnect();
+          setShow(true);
+          obs.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
-    if (section) observer.observe(section);
+    obs.observe(sec);
   }, []);
 
-  // -----------------------------------------------------
-  // Mobile optimization — load only 3 cards
-  // -----------------------------------------------------
-  const isMobile = window.innerWidth < 600;
-  const displayedProjects = isMobile ? projectData.slice(0, 3) : projectData;
+  // Limit for mobile view
+  const displayed = isMobile ? PROJECTS.slice(0, 3) : PROJECTS;
 
-  // -----------------------------------------------------
-  // Mobile swipe tracking
-  // -----------------------------------------------------
-  const handleScroll = () => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
+  // Mobile scroll tracking
+  useEffect(() => {
+    const wrap = wrapperRef.current;
+    if (!wrap) return;
 
-    const cardWidth = wrapper.offsetWidth * 0.9 + 16;
-    const index = Math.round(wrapper.scrollLeft / cardWidth);
-    setActiveIndex(index);
+    const onScroll = () => {
+      const cardWidth = wrap.offsetWidth * 0.86 + 16;
+      const index = Math.round(wrap.scrollLeft / cardWidth);
+      setActiveIndex(index);
+    };
+
+    wrap.addEventListener("scroll", onScroll);
+    return () => wrap.removeEventListener("scroll", onScroll);
+  }, [displayed.length]);
+
+  // Dot click handler
+  const handleDotClick = (i) => {
+    const wrap = wrapperRef.current;
+    if (!wrap) return;
+
+    const cardWidth = wrap.offsetWidth * 0.86 + 16;
+    wrap.scrollTo({ left: i * cardWidth, behavior: "smooth" });
   };
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-
-    wrapper.addEventListener("scroll", handleScroll);
-    return () => wrapper.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleDotClick = (index) => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-
-    const cardWidth = wrapper.offsetWidth * 0.9 + 16;
-    wrapper.scrollTo({ left: index * cardWidth, behavior: "smooth" });
-    setActiveIndex(index);
-  };
-
-  // -----------------------------------------------------
-  // GSAP animations — loaded dynamically + idle callback
-  // -----------------------------------------------------
-  useEffect(() => {
-    if (!showProjects) return;
-
-    requestIdleCallback(async () => {
-      const gsapModule = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-
-      gsapModule.gsap.registerPlugin(ScrollTrigger);
-
-      ScrollTrigger.batch(".new-project-item", {
-        start: "top 85%",
-        onEnter: (batch) => {
-          gsapModule.gsap.to(batch, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            stagger: 0.15,
-            duration: 1,
-            ease: "power3.out",
-          });
-        },
-      });
-    });
-  }, [showProjects]);
-
-  // -----------------------------------------------------
-  // RETURN JSX — conditional UI, NOT conditional hooks
-  // -----------------------------------------------------
   return (
-    <div className="new-project-container" id="projects">
-      <h1 className="new-project-title">My Projects</h1>
+    <section id="projects" className="pm-container">
+      <h2 className="pm-title">My Projects</h2>
 
-      {!showProjects ? (
-        <div className="loading-placeholder">
-          <p>Loading Projects...</p>
-        </div>
-      ) : (
-        <div className="new-project-blur-bg">
-          <div className="new-project-dots">
-            {displayedProjects.map((_, index) => (
-              <span
-                key={index}
-                onClick={() => handleDotClick(index)}
-                className={`dot ${index === activeIndex ? "active" : ""}`}
-              ></span>
-            ))}
-          </div>
-
-          <div className="new-project-wrapper" ref={wrapperRef}>
-            {displayedProjects.map((project, index) => (
-              <div
-                key={index}
-                className={`new-project-item ${index % 2 === 1 ? "reverse" : ""}`}
-              >
-                <div className="new-project-image-box">
-                  <img
-                    src={`/images/${project.image}`}
-                    alt={project.title}
-                    className="new-project-image"
-                  />
-                </div>
-
-                <div className="new-project-content">
-                  <h2>{project.title}</h2>
-
-                  {project.description.map((line, idx) => (
-                    <p key={idx}>{line}</p>
-                  ))}
-
-                  <a href={project.link} className="new-project-btn" target="_blank">
-                    View Project →
-                  </a>
-
-                  <div className="new-project-line" />
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Mobile Dots */}
+      {isMobile && (
+        <div className="pm-dots">
+          {displayed.map((_, i) => (
+            <button
+              key={i}
+              className={`pm-dot ${i === activeIndex ? "active" : ""}`}
+              onClick={() => handleDotClick(i)}
+            />
+          ))}
         </div>
       )}
-    </div>
+
+      <div className="pm-grid" ref={wrapperRef}>
+        {displayed.map((p, i) => (
+          <article key={i} className={`pm-card ${show ? "show" : ""}`}>
+            {/* TOP IMAGE */}
+            <div className="pm-img-box">
+              <img
+                src={`/images/${p.image}`}
+                alt={p.title}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            {/* OVERLAPPING CONTENT */}
+            <div className="pm-info">
+              <h3 className="pm-card-title">{p.title}</h3>
+
+              <ul className="pm-bullets">
+                {p.description.map((item, id) => (
+                  <li key={id}>{item}</li>
+                ))}
+              </ul>
+
+              <a className="pm-btn" href={p.link} target="_blank">
+                View Project →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 };
 
