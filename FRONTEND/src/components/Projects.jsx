@@ -4,33 +4,73 @@ import "./Projects.css";
 
 const PROJECTS = [
   {
-    title: "Portfolio Website",
-    description: ["Modern React UI", "Responsive", "Neon Animations"],
-    image: "../public/AI Automation.avif",
+    title: "Black Moon Portfolio Platform",
+    description: ["React + Vite", "Neon UI", "Premium Animations"],
+    image: "Full-Stack Apps.jpg",
+    folder: "images",
     link: "#",
   },
   {
-    title: "Weather App",
-    description: ["Live API", "Geo Location", "Dark UI"],
+    title: "HyperCast Weather Intelligence",
+    description: ["Live Weather API", "Geo Tracking", "Animated UI"],
     image: "weatherapp.svg",
+    folder: "project-icons",
     link: "#",
   },
   {
-    title: "E-Commerce UI",
-    description: ["Filters", "Search", "UI Components"],
+    title: "NovaCart E-Commerce Interface",
+    description: ["AI Filters", "Fast Checkout UX", "Product UI"],
     image: "ecommerce.svg",
+    folder: "project-icons",
     link: "#",
   },
   {
-    title: "Black Moon Dashboard",
-    description: ["Charts", "Widgets", "Dark Theme"],
+    title: "Black Moon Analytics Dashboard",
+    description: ["Real-time Charts", "Widget Composer", "Dark Theme"],
     image: "blackmoon.svg",
+    folder: "project-icons",
     link: "#",
   },
   {
-    title: "AI Chat Support",
-    description: ["OpenAI API", "Typing Effect"],
+    title: "LunaAI Chat Assistant",
+    description: ["OpenAI Integration", "Typing & Suggestions", "Conversational UI"],
     image: "ai.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "Orion Task Manager",
+    description: ["Drag & Drop", "Cloud Sync", "Productivity Focused"],
+    image: "tasks.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "QuantumDocs — AI PDF Analyzer",
+    description: ["AI Summaries", "PDF Extraction", "Smart Search"],
+    image: "pdfai.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "Nebula UI Component Library",
+    description: ["Neon UI Kit", "Reusable Components", "Design Tokens"],
+    image: "uikit.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "FluxAPI — Backend Suite",
+    description: ["Node.js + Express", "JWT Auth", "Performance-first"],
+    image: "api.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "Black Moon Mobile (PWA)",
+    description: ["Installable", "Offline Support", "Fast UX"],
+    image: "pwa.svg",
+    folder: "project-icons",
     link: "#",
   },
 ];
@@ -38,69 +78,131 @@ const PROJECTS = [
 const Projects = () => {
   const wrapperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [show, setShow] = useState(false);
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 600);
+  const [revealed, setRevealed] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 650);
 
-  // Resize handler
+  // Resize listener
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 600);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
+    if (typeof window === "undefined") return;
+    let rafId = null;
 
-  // Reveal animation trigger
-  useEffect(() => {
-    const sec = document.getElementById("projects");
-    if (!sec) return;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShow(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    obs.observe(sec);
-  }, []);
-
-  // Limit for mobile view
-  const displayed = isMobile ? PROJECTS.slice(0, 3) : PROJECTS;
-
-  // Mobile scroll tracking
-  useEffect(() => {
-    const wrap = wrapperRef.current;
-    if (!wrap) return;
-
-    const onScroll = () => {
-      const cardWidth = wrap.offsetWidth * 0.86 + 16;
-      const index = Math.round(wrap.scrollLeft / cardWidth);
-      setActiveIndex(index);
+    const onResize = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setIsMobile(window.innerWidth < 650));
     };
 
-    wrap.addEventListener("scroll", onScroll);
-    return () => wrap.removeEventListener("scroll", onScroll);
-  }, [displayed.length]);
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
-  // Dot click handler
-  const handleDotClick = (i) => {
+  // Reveal animation
+  useEffect(() => {
+    const sec = document.getElementById("projects");
+    if (!sec) return setRevealed(true);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    observer.observe(sec);
+    return () => observer.disconnect();
+  }, []);
+
+  // Mobile scroll tracking (rAF optimized)
+  useEffect(() => {
     const wrap = wrapperRef.current;
     if (!wrap) return;
 
-    const cardWidth = wrap.offsetWidth * 0.86 + 16;
+    let ticking = false;
+
+    const updateIndex = () => {
+      const first = wrap.querySelector(".pm-card");
+      if (!first) return;
+
+      const gap = parseInt(getComputedStyle(wrap).gap || 16, 10);
+      const cardWidth = first.getBoundingClientRect().width + gap;
+      const index = Math.max(0, Math.round((wrap.scrollLeft || 0) / cardWidth));
+
+      setActiveIndex(index);
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateIndex);
+      }
+    };
+
+    wrap.addEventListener("scroll", onScroll, { passive: true });
+    updateIndex();
+
+    return () => wrap.removeEventListener("scroll", onScroll);
+  }, [isMobile, PROJECTS.length]);
+
+  // Dot click scroll
+  const handleDotClick = useCallback((i) => {
+    const wrap = wrapperRef.current;
+    if (!wrap) return;
+    const first = wrap.querySelector(".pm-card");
+    if (!first) return;
+
+    const gap = parseInt(getComputedStyle(wrap).gap || 16, 10);
+    const cardWidth = first.getBoundingClientRect().width + gap;
+
     wrap.scrollTo({ left: i * cardWidth, behavior: "smooth" });
-  };
+    setActiveIndex(i);
+  }, []);
+
+  // Render cards
+  const renderCards = () =>
+    PROJECTS.map((p, i) => (
+      <article
+        key={p.title}
+        className={`pm-card ${revealed ? "show" : ""}`}
+        style={{ ["--i"]: i }}
+      >
+        <div className="pm-img-box">
+          <img
+            src={`/${p.folder}/${p.image}`}
+            alt={p.title}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div className="pm-info">
+          <h3 className="pm-card-title">{p.title}</h3>
+
+          <ul className="pm-bullets">
+            {p.description.map((d, id) => (
+              <li key={id}>{d}</li>
+            ))}
+          </ul>
+
+          <a className="pm-btn" href={p.link} target="_blank" rel="noopener noreferrer">
+            View Project →
+          </a>
+        </div>
+      </article>
+    ));
 
   return (
     <section id="projects" className="pm-container">
-      <h2 className="pm-title">My Projects</h2>
+      <h2 className="pm-title">Featured Projects</h2>
 
-      {/* Mobile Dots */}
       {isMobile && (
         <div className="pm-dots">
-          {displayed.map((_, i) => (
+          {PROJECTS.map((_, i) => (
             <button
               key={i}
               className={`pm-dot ${i === activeIndex ? "active" : ""}`}
@@ -111,34 +213,7 @@ const Projects = () => {
       )}
 
       <div className="pm-grid" ref={wrapperRef}>
-        {displayed.map((p, i) => (
-          <article key={i} className={`pm-card ${show ? "show" : ""}`}>
-            {/* TOP IMAGE */}
-            <div className="pm-img-box">
-              <img
-                src={`/images/${p.image}`}
-                alt={p.title}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-
-            {/* OVERLAPPING CONTENT */}
-            <div className="pm-info">
-              <h3 className="pm-card-title">{p.title}</h3>
-
-              <ul className="pm-bullets">
-                {p.description.map((item, id) => (
-                  <li key={id}>{item}</li>
-                ))}
-              </ul>
-
-              <a className="pm-btn" href={p.link} target="_blank">
-                View Project →
-              </a>
-            </div>
-          </article>
-        ))}
+        {renderCards()}
       </div>
     </section>
   );

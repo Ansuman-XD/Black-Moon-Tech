@@ -1,128 +1,167 @@
 /* ===========================================
-   ⚡ Neon Tech Grid With Rotating Icons
+   ⚡ Black Moon Premium TechStack UI
+   Cyberpunk Neon • Glass Glow • Ultra Smooth
 =========================================== */
 
 .techstack-section {
-  padding: 60px 20px;
-  background: #0b0b0f;
-  margin-top: 40px;
+  padding: 80px 20px;
+  background: radial-gradient(circle at top, #111 0%, #050508 100%);
+  margin-top: 60px;
 }
 
+/* MAIN TITLE */
 .tech-title {
   text-align: center;
-  font-size: 2.3rem;
+  font-size: 2.8rem;
   font-family: "Shadows Into Light", cursive;
   font-weight: 800;
-  background: linear-gradient(90deg, #eeeeeeff, #faf7f1ff);
+  background: linear-gradient(90deg, #ff9aed, #e6f7ff);
   -webkit-background-clip: text;
   color: transparent;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 18px rgba(255, 130, 220, 0.5);
 }
 
+/* SECTION SUBTITLE */
 .section-subtitle {
-  font-size: 1.4rem;
-  color: #ffdcee;
-  margin-bottom: 18px;
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(255, 80, 160, 0.4);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffdaff;
+  margin-bottom: 20px;
+  text-shadow: 0 0 12px rgba(255, 100, 200, 0.5);
+  position: relative;
 }
 
-/* ===========================
-   GRID
-=========================== */
+/* Neon underline separator */
+.section-subtitle::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff77e9, #ffe8fa);
+  margin-top: 6px;
+  border-radius: 10px;
+}
+
+/* GRID LAYOUT */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 14px;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 50px;
 }
 
-/* ===========================
-   CARD WITH ICON
-=========================== */
+/* TECH CARD */
 .icon-card {
+  padding: 25px;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
 
-  padding: 20px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: default;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+  cursor: pointer;
 }
 
+/* Glow border animation */
+.icon-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 2px;
+  background: linear-gradient(120deg, #ff8ff6, #cfff66, #72f5ff);
+  background-size: 300% 300%;
+  animation: borderGlow 4s ease infinite;
+  -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Shimmer inside card */
+.icon-card::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -30%;
+  width: 160%;
+  height: 200%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(25deg);
+  transition: opacity 0.4s ease;
+  opacity: 0;
+}
+
+.icon-card:hover::after {
+  opacity: 1;
+}
+
+/* Hover elevation effect */
 .icon-card:hover {
-  transform: translateY(-6px) scale(1.04);
-  box-shadow: 0 0 20px rgba(255, 80, 160, 0.35);
-  border-color: rgba(255, 100, 200, 0.5);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 0 35px rgba(255, 120, 230, 0.45);
 }
 
-/* ===========================
-   ICON ROTATION
-=========================== */
-
+/* ICON */
 .tech-icon {
-  width: 48px;
-  height: 48px;
-  filter: drop-shadow(0 0 6px rgba(255, 120, 220, 0.5));
+  width: 54px;
+  height: 54px;
+  filter: drop-shadow(0 0 10px rgba(255, 120, 220, 0.6));
 }
 
-/* Continuous rotation */
-.rotate {
-  animation: spin 4.5s linear infinite;
-}
-
-/* Hover pause */
-.icon-card:hover .rotate {
-  animation-play-state: paused;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-/* Label */
+/* LABEL TEXT */
 .tech-label {
-  color: #fff;
+  font-size: 1rem;
   font-weight: 700;
-  font-size: 0.95rem;
-  text-shadow: 0 0 8px rgba(255, 188, 250, 0.4);
+  letter-spacing: 0.4px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 200, 255, 0.4);
 }
 
 /* Fade-in animation */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.9s ease forwards;
+  transform: translateY(30px);
+  animation: fadeUp 1s ease forwards;
 }
 
 @keyframes fadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
   .tech-icon {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
 
   .tech-label {
     font-size: 0.85rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 }
