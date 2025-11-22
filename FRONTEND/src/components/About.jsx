@@ -194,7 +194,7 @@ export default function AboutNew() {
   const scrollNext = () => scrollToIndex(centeredIndex + 1);
 
   return (
-    <main className="ng-about">
+    <main className="ng-about" id="about">
       <section className={`ng-hero ${mounted ? "mounted" : "placeholder"}`} ref={heroRef} aria-label="About hero">
         <div className="ng-hero-inner" style={{ transform: `translate3d(${tx}px, ${ty}px, 0)` }}>
           <h1 className="ng-title" aria-label="We design living interfaces">
