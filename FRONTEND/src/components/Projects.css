@@ -1,382 +1,198 @@
-/* =======================
-   Imports
-======================= */
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
-
-/* ----------------------------------------------
-   NEW PROJECTS SECTION – CLEAN NEON THEME
----------------------------------------------- */
-/* ----------------------------------------------
-   PROJECT SECTION MAIN WRAPPER (Blur + Gradient)
----------------------------------------------- */
-.new-project-blur-bg {
-  width: 100%;
-  padding: 40px 20px;
-  border-radius: 20px;
-
-  /* Neon gradient theme background */
-  background: linear-gradient(90deg, #2b2b33, #3a3a46, #2b2b33);
-
-  /* Frosted glass blur */
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-
-  /* Neon border glow */
-  border: 1px solid rgba(0, 255, 120, 0.18);
-  box-shadow: 0 0 20px rgba(0, 255, 100, 0.15),
-    inset 0 0 30px rgba(0, 255, 100, 0.08);
-
-  /* Smooth edges */
-  margin: auto;
-}
-
-.new-project-container {
-  position: relative;
-  background-color: #000; /* outer pure black */
-  padding: 60px 30px;
+/* -------------------------------------- */
+/* CONTAINER */
+/* -------------------------------------- */
+.pm-container {
+  background: #0b0b10;
+  padding: 60px 20px;
   color: #fff;
-  font-family: "Shadows Into Light", cursive;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
 }
 
-.new-project-title {
-  font-family: "Shadows Into Light", cursive;
+.pm-title {
   text-align: center;
   font-size: 2.3rem;
-  color: white;
-  margin-bottom: 40px;
+  font-family: "Shadows Into Light", cursive;
   text-shadow: 0 0 18px #ff5dcc;
-  margin-left: 20px; /* small left padding */
+  margin-bottom: 35px;
 }
 
-.new-project-wrapper {
+/* -------------------------------------- */
+/* GRID */
+/* -------------------------------------- */
+.pm-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  gap: 40px;
-  padding: 10px;
-  perspective: 1500px;
-}
-
-/* ----------------------------------------------
-   Main Project Row (Alternating Style)
----------------------------------------------- */
-
-.new-project-item {
-  width: 100%;
-  max-height: 520px; /* enough space for long content */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background: rgba(0, 0, 0, 0.45); /* Dark transparent */
-  backdrop-filter: blur(18px); /* Strong blur*/
-  -webkit-backdrop-filter: blur(18px); /*Safari support*/
-  border-radius: 18px;
-  padding: 20px;
-  border: 1px solid rgba(255, 93, 204, 0.25);
-  box-shadow: 0 0 20px rgba(255, 93, 204, 0.3),
-  inset 0 0 20px rgba(255, 93, 204, 0.15);
-  transform-style: preserve-3d;
-  transform: translateY(80px) scale(0.92);
-  opacity: 0;
-  transition: transform 0.6s ease;
-}
-
-/* CYBER SHINE */
-.new-project-item::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(0, 255, 120, 0.25), transparent);
-  opacity: 0.08;
-  pointer-events: none;
-}
-/* When visible */
-.visible-section {
-  opacity: 1 !important;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-.new-project-item.reverse {
-  flex-direction: row-reverse;
-}
-.new-project-item.visible-section {
-  transform: translateY(-8px); /* subtle 3D lift */
-}
-
-/* ----------------------------------------------
-   Image Section
----------------------------------------------- */
-.new-project-image-box {
-  flex: 1;
+  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  max-width: 1200px;
+  margin: auto;
   position: relative;
-  height: 220px; /* ← fixed height for all images */
-  width: 100%;
-  overflow: hidden;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.03);
-  transform-style: preserve-3d;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.new-project-image {
-  width: 100%;
-  border-radius: 12px;
-  height: 100%;
-  object-fit: cover; /* ← keeps images uniform */
-  border-radius: 12px;
-  transition: 0.4s ease;
-  border: 2px solid rgba(255, 255, 255, 0.1); /* transparent border */
-  box-shadow: 0 0 25px rgba(255, 93, 204, 0.45);
-  /* Cinematic color grading */
-  filter: brightness(0.9) contrast(1.2);
-}
-
-/* Hover effect: neon glow + smooth zoom */
-.new-project-image:hover {
-  transform: scale(1.07);
-  filter: brightness(1.1) contrast(1.2) sepia(5%);
-  box-shadow: 0 0 25px rgba(255, 93, 204, 0.45);
-}
-
-/* Shine effect */
-.new-project-image-box::before {
-  content: "";
-  position: absolute;
-  top: -120%;
-  left: 0;
-  width: 100%;
-  height: 120%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.25),
-    transparent
-  );
-  transform: skewX(-20deg);
-  transition: 0.6s;
-  pointer-events: none;
-  opacity: 0.2;
-}
-
-/* Move shine on hover */
-.new-project-image-box:hover::before {
-  top: 120%;
-  opacity: 0.35;
-}
-
-/* Grain effect overlay */
-.new-project-image-box::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  top: -100%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    115deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(0, 255, 130, 0.25),
-    transparent
-  );
-  opacity: 0.15;
-  transform: rotate(25deg);
-  transition: 0.8s ease;
-  pointer-events: none;
-  background-size: cover;
-  mix-blend-mode: overlay;
-}
-/* Hover 3D Tilt + More Glow */
-.new-project-image-box:hover {
-  transform: translateY(-8px) rotateX(8deg) rotateY(-10deg);
-  box-shadow: 0 0 40px rgba(255, 93, 204, 0.55),
-    0 0 90px rgba(255, 93, 204, 0.35);
-}
-/* Hover Shine + Pop */
-.new-project-image-box:hover .new-project-image {
-  transform: scale(1.12);
-  filter: brightness(1.1);
-}
-.new-project-item:hover .new-project-image-box::after {
-  top: 100%;
-}
-
-/* ----------------------------------------------
-   Content Section
----------------------------------------------- */
-.new-project-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: #ffffff;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(14px);
-  background: rgba(255, 255, 255, 0.05);
-  padding: 25px;
-  border-radius: 18px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.new-project-content h2 {
-  color: white;
-  background-color: linear-gradient(45deg, #ff5dcc, #ffd24a);
-  font-size: 24px;
-  margin: 18px 0 10px;
-  text-shadow: 0 0 10px #ff5dcc;
-}
-.new-project-content h2:hover {
-  text-shadow: 0 0 18px #ff5dcc;
-}
-.new-project-content p {
-  opacity: 0.85;
-  font-size: 15px;
-  line-height: 1.7;
-}
-
-/* Neon Button */
-.new-project-btn {
-  display: inline-block;
-  margin-top: auto;
-  background: linear-gradient(45deg, #ff5dcc, #ffd24a);
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 93, 204, 0.5);
-}
-
-.new-project-btn:hover {
-  background-color: #fff;
-  box-shadow: 0 0 15px #ff5dcc;
-}
-/* ----------------------------------------------
-   RESPONSIVE DESIGN
----------------------------------------------- */
-
-/* Tablets */
-@media (max-width: 900px) {
-  .new-project-item,
-  .new-project-item.reverse {
-    flex-direction: column;
-  }
-  .new-project-item {
-    height: 450px;
-  }
-
-  .new-project-title {
-    text-align: center;
-    margin-left: 0;
-    font-size: 2rem;
-  }
-  .new-project-image-box {
-    height: 190px;
-  }
-  .new-project-image {
-    width: 95%;
-  }
-
-  .new-project-content {
-    text-align: center;
-    padding: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .new-project-item {
-    transform: none !important;
-  }
-
-  .new-project-content {
-    padding: 18px;
-    backdrop-filter: blur(10px);
-  }
-}
-
-/* Phones */
-@media (max-width: 600px) {
-  .new-project-wrapper {
+/* -------------------------------------- */
+/* MOBILE SCROLL FIXED */
+/* -------------------------------------- */
+@media (max-width: 650px) {
+  .pm-grid {
     display: flex !important;
-    flex-direction: row !important;
     overflow-x: auto !important;
-    overflow-y: hidden;
-    gap: 16px;
-
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    padding: 0 10px 20px 10px;
-
-    -webkit-overflow-scrolling: touch; /* smooth iOS scroll */
+    gap: 20px;
+    padding: 5px 10px 20px;
   }
 
-  .new-project-item {
-    min-width: 90% !important; /* size of each project card */
-    flex: 0 0 auto;
-    scroll-snap-align: center; /* card snaps nicely */
-    height: 380px !important; /* reduced height to fit mobile */
-    padding: 14px !important; /* smaller padding */
-    border-radius: 16px; /* consistent height */
-  }
-
-  /* BUTTON */
-  .new-project-btn {
-    padding: 8px 14px !important;
-    font-size: 14px;
-    margin-top: auto;
-  }
-
-  /* hide ugly scrollbar */
-  .new-project-wrapper::-webkit-scrollbar {
+  .pm-grid::-webkit-scrollbar {
     display: none;
   }
-  .new-project-content {
-    padding: 14px !important; /* reduced padding */
-    gap: 6px;
-  }
 
-  .new-project-title {
-    font-size: 24px;
-    margin-bottom: 20px;
+  /* FIXED: Cards must have MIN-WIDTH for snap to work */
+  .pm-card {
+    min-width: 82% !important;
+    scroll-snap-align: center !important;
   }
+}
 
-  .new-project-content h2 {
-    font-size: 18px;
-    margin: 10px 0 6px;
-  }
+/* -------------------------------------- */
+/* CARD */
+/* -------------------------------------- */
+.pm-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: visible;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px) scale(0.96);
+  animation: pmFadeUp 0.7s ease forwards;
+  animation-delay: calc(var(--i) * 0.15s);
+}
 
-  .new-project-content p {
-    font-size: 13px;
-    line-height: 1.5;
-  }
-  .new-project-image-box {
-    height: 150px; /* smaller fixed size for phones */
-    border-radius: 12px;
-  }
-  /* Mobile swipe dots */
-  .new-project-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
+/* Card Hover Animation */
+.pm-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  transition: 0.4s ease;
+}
 
-  .new-project-dots .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
+/* Fade + Slide + Slight Rotate */
+@keyframes pmFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96) rotateX(4deg);
   }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
 
-  .new-project-dots .dot.active {
-    background: #ff5dcc;
-    box-shadow: 0 0 6px #ff5dcc;
-  }
+/* -------------------------------------- */
+/* IMAGE */
+/* -------------------------------------- */
+.pm-img-box {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 14px 14px 0 0;
+  position: relative;
+}
+
+/* Floating Image Animation */
+.pm-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85);
+  transition: 0.7s ease;
+  animation: pmFloat 4s ease-in-out infinite;
+}
+
+@keyframes pmFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.pm-card:hover .pm-img-box img {
+  transform: scale(1.1);
+  filter: brightness(0.6);
+}
+
+/* -------------------------------------- */
+/* OVERLAY CONTENT */
+/* -------------------------------------- */
+.pm-info {
+  background: rgba(21, 21, 29, 0.75);
+  backdrop-filter: blur(10px);
+  padding: 18px 18px 22px;
+  border-radius: 14px;
+  margin-top: -25px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  opacity: 0;
+  transform: translateY(15px);
+  animation: pmInfoFade 0.7s ease forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes pmInfoFade {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.pm-card-title {
+  font-family: "Shadows Into Light", cursive;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  text-shadow: 0 0 12px #ff5dcc;
+}
+
+/* BULLETS */
+.pm-bullets {
+  padding-left: 18px;
+  margin-bottom: 12px;
+}
+
+.pm-bullets li {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+/* BUTTON */
+.pm-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #ff5dcc, #ffa75e);
+  padding: 7px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #0b0810;
+  transition: 0.3s ease;
+}
+
+.pm-btn:hover {
+  filter: brightness(1.1);
+  transform: translateX(3px);
+}
+
+/* -------------------------------------- */
+/* MOBILE DOTS */
+/* -------------------------------------- */
+.pm-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.pm-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  transition: 0.25s;
+}
+
+.pm-dot.active {
+  background: #ff5dcc;
+  box-shadow: 0 0 6px #ff5dcc;
 }

@@ -15,7 +15,7 @@ const Hero = () => {
         preload="metadata"
         loading="lazy"
       >
-        <source src="sakura-3-compressed.mp4" type="video/mp4" />
+        <source src="sakura-3-compressed.webm" type="video/mp4" />
       </video>
 
       <div className="hero-content">

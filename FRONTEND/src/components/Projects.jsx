@@ -1,248 +1,221 @@
-// -----------------------------------------------------
-// BLACK MOON TECH — SUPER OPTIMIZED PROJECTS (SVG-safe)
-// -----------------------------------------------------
-import React, { useEffect, useRef, useState } from "react";
+// src/components/Projects.jsx
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import "./Projects.css";
+
+const PROJECTS = [
+  {
+    title: "Black Moon Portfolio Platform",
+    description: ["React + Vite", "Neon UI", "Premium Animations"],
+    image: "Full-Stack Apps.jpg",
+    folder: "images",
+    link: "#",
+  },
+  {
+    title: "HyperCast Weather Intelligence",
+    description: ["Live Weather API", "Geo Tracking", "Animated UI"],
+    image: "weatherapp.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "NovaCart E-Commerce Interface",
+    description: ["AI Filters", "Fast Checkout UX", "Product UI"],
+    image: "ecommerce.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "Black Moon Analytics Dashboard",
+    description: ["Real-time Charts", "Widget Composer", "Dark Theme"],
+    image: "blackmoon.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "LunaAI Chat Assistant",
+    description: ["OpenAI Integration", "Typing & Suggestions", "Conversational UI"],
+    image: "ai.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "Orion Task Manager",
+    description: ["Drag & Drop", "Cloud Sync", "Productivity Focused"],
+    image: "tasks.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "QuantumDocs — AI PDF Analyzer",
+    description: ["AI Summaries", "PDF Extraction", "Smart Search"],
+    image: "pdfai.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "Nebula UI Component Library",
+    description: ["Neon UI Kit", "Reusable Components", "Design Tokens"],
+    image: "uikit.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "FluxAPI — Backend Suite",
+    description: ["Node.js + Express", "JWT Auth", "Performance-first"],
+    image: "api.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+  {
+    title: "Black Moon Mobile (PWA)",
+    description: ["Installable", "Offline Support", "Fast UX"],
+    image: "pwa.svg",
+    folder: "project-icons",
+    link: "#",
+  },
+];
 
 const Projects = () => {
   const wrapperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showProjects, setShowProjects] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 650);
 
-  // -----------------------------------------------------
-  // PROJECT DATA (USE SVG IMAGES IN /public/images/)
-  // -----------------------------------------------------
-  const projectData = [
-    {
-      title: "Portfolio Website",
-      description: [
-        "A modern personal portfolio built using React with a neon UI theme.",
-        "Fully responsive design for desktop, tablet, and mobile.",
-        "Implemented scroll-triggered animations using GSAP."
-      ],
-      image: "portfolio.svg",
-      link: "#",
-    },
-    {
-      title: "Weather App",
-      description: [
-        "Real-time weather application using OpenWeather API.",
-        "Dynamic UI updates based on user input and location.",
-        "Dark-mode friendly neon UI."
-      ],
-      image: "weatherapp.svg",
-      link: "#",
-    },
-    {
-      title: "E-Commerce UI",
-      description: [
-        "Modern e-commerce UI built with React.",
-        "Product listings, filters, and search functionality.",
-        "Smooth hover effects and animations."
-      ],
-      image: "ecommerce.svg",
-      link: "#",
-    },
-    {
-      title: "UI Components Library",
-      description: [
-        "Reusable UI components library.",
-        "Contains buttons, cards, modals, sliders, and forms.",
-        "Fully responsive and customizable."
-      ],
-      image: "library.svg",
-      link: "#",
-    },
-    {
-      title: "Black Moon Dashboard",
-      description: [
-        "Futuristic neon dashboard UI with analytics widgets.",
-        "Dynamic charts and data tables.",
-        "Responsive and interactive layout."
-      ],
-      image: "blackmoon.svg",
-      link: "#",
-    },
-    {
-      title: "AI Chat Support System",
-      description: [
-        "AI-powered chat assistant built using React + OpenAI.",
-        "Typing animation and chat history support.",
-        "Designed in the Black Moon neon aesthetic."
-      ],
-      image: "ai.svg",
-      link: "#",
-    },
-    {
-      title: "Finance Tracker Dashboard",
-      description: [
-        "Track expenses and income visually with charts.",
-        "Category filters and advanced analytics.",
-        "Beautiful neon dashboard UI."
-      ],
-      image: "finance.svg",
-      link: "#",
-    },
-    {
-      title: "Task Manager App",
-      description: [
-        "Create, update, delete, and prioritize tasks.",
-        "Built using LocalStorage and React state.",
-        "Smooth GSAP animations for interactions."
-      ],
-      image: "task.svg",
-      link: "#",
-    },
-    {
-      title: "Music Player UI",
-      description: [
-        "Futuristic neon music player interface.",
-        "Custom audio controls using HTML5 Audio API.",
-        "Playlist support and animated waveform."
-      ],
-      image: "music.svg",
-      link: "#",
-    },
-  ];
-
-  // -----------------------------------------------------
-  // Lazy-render projects only when visible
-  // -----------------------------------------------------
+  // Resize listener
   useEffect(() => {
-    const section = document.getElementById("projects");
+    if (typeof window === "undefined") return;
+    let rafId = null;
+
+    const onResize = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setIsMobile(window.innerWidth < 650));
+    };
+
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  // Reveal animation
+  useEffect(() => {
+    const sec = document.getElementById("projects");
+    if (!sec) return setRevealed(true);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setShowProjects(true);
+          setRevealed(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.12 }
     );
 
-    if (section) observer.observe(section);
+    observer.observe(sec);
+    return () => observer.disconnect();
   }, []);
 
-  // -----------------------------------------------------
-  // Mobile optimization — load only 3 cards
-  // -----------------------------------------------------
-  const isMobile = window.innerWidth < 600;
-  const displayedProjects = isMobile ? projectData.slice(0, 3) : projectData;
-
-  // -----------------------------------------------------
-  // Mobile swipe tracking
-  // -----------------------------------------------------
-  const handleScroll = () => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-
-    const cardWidth = wrapper.offsetWidth * 0.9 + 16;
-    const index = Math.round(wrapper.scrollLeft / cardWidth);
-    setActiveIndex(index);
-  };
-
+  // Mobile scroll tracking (rAF optimized)
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
+    const wrap = wrapperRef.current;
+    if (!wrap) return;
 
-    wrapper.addEventListener("scroll", handleScroll);
-    return () => wrapper.removeEventListener("scroll", handleScroll);
+    let ticking = false;
+
+    const updateIndex = () => {
+      const first = wrap.querySelector(".pm-card");
+      if (!first) return;
+
+      const gap = parseInt(getComputedStyle(wrap).gap || 16, 10);
+      const cardWidth = first.getBoundingClientRect().width + gap;
+      const index = Math.max(0, Math.round((wrap.scrollLeft || 0) / cardWidth));
+
+      setActiveIndex(index);
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateIndex);
+      }
+    };
+
+    wrap.addEventListener("scroll", onScroll, { passive: true });
+    updateIndex();
+
+    return () => wrap.removeEventListener("scroll", onScroll);
+  }, [isMobile, PROJECTS.length]);
+
+  // Dot click scroll
+  const handleDotClick = useCallback((i) => {
+    const wrap = wrapperRef.current;
+    if (!wrap) return;
+    const first = wrap.querySelector(".pm-card");
+    if (!first) return;
+
+    const gap = parseInt(getComputedStyle(wrap).gap || 16, 10);
+    const cardWidth = first.getBoundingClientRect().width + gap;
+
+    wrap.scrollTo({ left: i * cardWidth, behavior: "smooth" });
+    setActiveIndex(i);
   }, []);
 
-  const handleDotClick = (index) => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
-
-    const cardWidth = wrapper.offsetWidth * 0.9 + 16;
-    wrapper.scrollTo({ left: index * cardWidth, behavior: "smooth" });
-    setActiveIndex(index);
-  };
-
-  // -----------------------------------------------------
-  // GSAP animations — loaded dynamically + idle callback
-  // -----------------------------------------------------
-  useEffect(() => {
-    if (!showProjects) return;
-
-    requestIdleCallback(async () => {
-      const gsapModule = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-
-      gsapModule.gsap.registerPlugin(ScrollTrigger);
-
-      ScrollTrigger.batch(".new-project-item", {
-        start: "top 85%",
-        onEnter: (batch) => {
-          gsapModule.gsap.to(batch, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            stagger: 0.15,
-            duration: 1,
-            ease: "power3.out",
-          });
-        },
-      });
-    });
-  }, [showProjects]);
-
-  // -----------------------------------------------------
-  // RETURN JSX — conditional UI, NOT conditional hooks
-  // -----------------------------------------------------
-  return (
-    <div className="new-project-container" id="projects">
-      <h1 className="new-project-title">My Projects</h1>
-
-      {!showProjects ? (
-        <div className="loading-placeholder">
-          <p>Loading Projects...</p>
+  // Render cards
+  const renderCards = () =>
+    PROJECTS.map((p, i) => (
+      <article
+        key={p.title}
+        className={`pm-card ${revealed ? "show" : ""}`}
+        style={{ ["--i"]: i }}
+      >
+        <div className="pm-img-box">
+          <img
+            src={`/${p.folder}/${p.image}`}
+            alt={p.title}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-      ) : (
-        <div className="new-project-blur-bg">
-          <div className="new-project-dots">
-            {displayedProjects.map((_, index) => (
-              <span
-                key={index}
-                onClick={() => handleDotClick(index)}
-                className={`dot ${index === activeIndex ? "active" : ""}`}
-              ></span>
+
+        <div className="pm-info">
+          <h3 className="pm-card-title">{p.title}</h3>
+
+          <ul className="pm-bullets">
+            {p.description.map((d, id) => (
+              <li key={id}>{d}</li>
             ))}
-          </div>
+          </ul>
 
-          <div className="new-project-wrapper" ref={wrapperRef}>
-            {displayedProjects.map((project, index) => (
-              <div
-                key={index}
-                className={`new-project-item ${index % 2 === 1 ? "reverse" : ""}`}
-              >
-                <div className="new-project-image-box">
-                  <img
-                    src={`/images/${project.image}`}
-                    alt={project.title}
-                    className="new-project-image"
-                  />
-                </div>
+          <a className="pm-btn" href={p.link} target="_blank" rel="noopener noreferrer">
+            View Project →
+          </a>
+        </div>
+      </article>
+    ));
 
-                <div className="new-project-content">
-                  <h2>{project.title}</h2>
+  return (
+    <section id="projects" className="pm-container">
+      <h2 className="pm-title">Featured Projects</h2>
 
-                  {project.description.map((line, idx) => (
-                    <p key={idx}>{line}</p>
-                  ))}
-
-                  <a href={project.link} className="new-project-btn" target="_blank">
-                    View Project →
-                  </a>
-
-                  <div className="new-project-line" />
-                </div>
-              </div>
-            ))}
-          </div>
+      {isMobile && (
+        <div className="pm-dots">
+          {PROJECTS.map((_, i) => (
+            <button
+              key={i}
+              className={`pm-dot ${i === activeIndex ? "active" : ""}`}
+              onClick={() => handleDotClick(i)}
+            />
+          ))}
         </div>
       )}
-    </div>
+
+      <div className="pm-grid" ref={wrapperRef}>
+        {renderCards()}
+      </div>
+    </section>
   );
 };
 
