@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Services.css";
 
-
 /*
   Anime / Gamer Energetic theme.
-  FINAL VERSION WITH 10 SERVICES + INTRO PARAGRAPH
+  FINAL VERSION WITH modal popup on "Learn more"
 */
 
 const servicesData = [
@@ -15,11 +14,14 @@ const servicesData = [
     copyFull:
       "We build pixel-perfect, high-performance sites with React, Next.js, TypeScript and blazing-speed SSR.",
     button: "Explore",
-    icon: "/icons/phone-desktop.svg",
+    icon: "/Logo/icon-1 (1).svg",
     img: "/Custom Website Development.avif",
     badge: "Most Popular",
     rating: "4.9",
     slots: 3,
+    price: "$3,500",
+    deadline: "2–4 weeks",
+    devs: 2,
   },
   {
     id: 2,
@@ -28,11 +30,14 @@ const servicesData = [
     copyFull:
       "User-first design, interactive prototypes & design systems crafted to convert and scale.",
     button: "View Designs",
-    icon: "/icons/design-ideas.svg",
+    icon: "/Logo/icon-2 (1).svg",
     img: "/UIUXDesign.avif",
     badge: "Editor’s Pick",
     rating: "4.8",
     slots: 5,
+    price: "$2,200",
+    deadline: "1–3 weeks",
+    devs: 1,
   },
   {
     id: 3,
@@ -41,11 +46,14 @@ const servicesData = [
     copyFull:
       "APIs, auth, real-time systems, databases & scalable hosting pipelines for enterprise products.",
     button: "Build Now",
-    icon: "/icons/code-block.svg",
+    icon: "/Logo/icon-3 (1).svg",
     img: "/Full-Stack Apps.avif",
     badge: "Enterprise",
     rating: "4.7",
     slots: 2,
+    price: "$7,500",
+    deadline: "4–8 weeks",
+    devs: 3,
   },
   {
     id: 4,
@@ -54,26 +62,15 @@ const servicesData = [
     copyFull:
       "Smart assistants & customer support bots powered by LLMs and custom fine-tuning.",
     button: "Start AI",
-    icon: "/icons/bot.svg",
+    icon: "/Logo/icon-4 (1).svg",
     img: "/AI Chatbots.avif",
     badge: "Hot",
     rating: "4.9",
     slots: 1,
+    price: "$4,000",
+    deadline: "2–5 weeks",
+    devs: 2,
   },
-
-  // {
-  //   id: 5,
-  //   title: "Branding & Logo Design",
-  //   copyShort: "Modern, bold digital brand identities.",
-  //   copyFull:
-  //     "We create premium logos, mascots, color palettes & brand stories with anime/gamer design principles.",
-  //   button: "Create Brand",
-  //   icon: "/icons/color-background.svg",
-  //   img: "/service-bg/service-5.jpg",
-  //   badge: "Trending",
-  //   rating: "4.8",
-  //   slots: 4,
-  // },
   {
     id: 6,
     title: "Cloud Hosting & Deployment",
@@ -81,11 +78,14 @@ const servicesData = [
     copyFull:
       "Deploy apps with auto-scaling, secure backups, CI/CD pipelines & global edge caching.",
     button: "Deploy Now",
-    icon: "/icons/cloud-flow.svg",
+    icon: "/Logo/icon-5 (1).svg",
     img: "/Cloud Hosting & Deployment.avif",
     badge: "Pro",
     rating: "4.7",
     slots: 6,
+    price: "$1,200 / mo",
+    deadline: "Setup in 1–3 days",
+    devs: 1,
   },
   {
     id: 7,
@@ -94,25 +94,15 @@ const servicesData = [
     copyFull:
       "Advanced keyword strategy, speed optimization, schema markup, backlinks, & AI-powered content pipelines.",
     button: "Boost SEO",
-    icon: "/icons/top-speed.svg",
+    icon: "/Logo/icon-6 (1).svg",
     img: "/SEO & Ranking Boost.avif",
     badge: "High ROI",
     rating: "4.9",
     slots: 3,
+    price: "$900 / mo",
+    deadline: "1–2 months",
+    devs: 1,
   },
-  // {
-  //   id: 8,
-  //   title: "Digital Marketing",
-  //   copyShort: "Social media ads that convert.",
-  //   copyFull:
-  //     "Anime-style creatives, performance ads, UGC campaigns and A/B tested funnels built for ROAS scaling.",
-  //   button: "Grow Now",
-  //   icon: "/icons/megaphone-loud.svg",
-  //   img: "/service-bg/service-8.jpg",
-  //   badge: "Growth",
-  //   rating: "4.8",
-  //   slots: 2,
-  // },
   {
     id: 9,
     title: "AI  AUTOMATION",
@@ -120,11 +110,14 @@ const servicesData = [
     copyFull:
       "Stripe payments, OAuth login, AI APIs, automation pipelines, analytics dashboards & service integrations.",
     button: "Integrate",
-    icon: "/icons/plug-connected.svg",
+    icon: "/Logo/icon-7 (1).svg",
     img: "/AI Automation.avif",
     badge: "Tech",
     rating: "4.9",
     slots: 2,
+    price: "$2,800",
+    deadline: "2–4 weeks",
+    devs: 2,
   },
   {
     id: 10,
@@ -133,13 +126,15 @@ const servicesData = [
     copyFull:
       "Security audits, penetration tests, firewall setup, DDoS protection, malware cleanup & secure coding.",
     button: "Secure Now",
-    icon: "/icons/shield-lock.svg",
+    icon: "/Logo/icon-8 (1).svg",
     img: "/Cybersecurity & Audit.avif",
     badge: "Priority",
     rating: "5.0",
     slots: 1,
+    price: "$1,500",
+    deadline: "3–7 days",
+    devs: 1,
   },
-
   {
     id: 11,
     title: "AI Automation Workflows",
@@ -147,8 +142,8 @@ const servicesData = [
     copyFull:
       "We build AI-powered automation pipelines that handle email replies, CRM updates, lead scoring, content generation, scheduling, and customer service workflows.",
     button: "Automate",
-    icon: "/icons/arrow-sync-checkmark.svg",
-    img: "\AI Automation Workflows.avif",
+    icon: "/Logo/icon-9 (1).svg",
+    img: "/AI Automation Workflows.avif",
     badge: "New",
     rating: "4.9",
     slots: 3,
@@ -160,7 +155,7 @@ const servicesData = [
     copyFull:
       "We create unique AI-generated illustrations, anime art, logos, thumbnails, and product visuals using advanced diffusion models and style-transfer pipelines.",
     button: "Generate Art",
-    icon: "/icons/image-sparkle.svg",
+    icon: "/Logo/icon-10 (1).svg",
     img: "/AI Image Generation.avif",
     badge: "Creative",
     rating: "4.8",
@@ -173,8 +168,8 @@ const servicesData = [
     copyFull:
       "High-quality AI-generated cinematic scenes, anime-style motion shots, and product videos using text-to-video and storyboard AI systems.",
     button: "Create Video",
-    icon: "/icons/video-chat.svg",
-    img: "AI Video Generation.avif",
+    icon: "/Logo/icon-11 (1).svg",
+    img: "/AI Video Generation.avif",
     badge: "Trending",
     rating: "4.7",
     slots: 1,
@@ -186,8 +181,8 @@ const servicesData = [
     copyFull:
       "Custom voice-controlled AI that listens, understands, and performs actions. Perfect for businesses, apps, websites, and automation.",
     button: "Build Assistant",
-    icon: "/icons/mic-sparkle.svg",
-    img: "AI Voice Assistants.avif",
+    icon: "/Logo/icon-12 (1).svg",
+    img: "/AI Voice Assistants.avif",
     badge: "Hot",
     rating: "5.0",
     slots: 3,
@@ -199,7 +194,7 @@ const servicesData = [
     copyFull:
       "We train AI chatbots using your company’s documents, FAQs, product manuals, emails, and website content for accurate and personalized support.",
     button: "Train Bot",
-    icon: "/icons/books.svg",
+    icon: "/Logo/icon-13 (1).svg",
     img: "/AI Chatbot Training.avif",
     badge: "AI Pro",
     rating: "4.9",
@@ -212,8 +207,8 @@ const servicesData = [
     copyFull:
       "We integrate OpenAI, Claude, Gemini, Stability, Speech-to-Text, Vision AI, and embeddings into your existing website or mobile app.",
     button: "Integrate AI",
-    icon: "/icons/cpu-sparkle.svg",
-    img: "AI Content Generation.avif",
+    icon: "/Logo/icon-14 (1).svg",
+    img: "/AI Content Generation.avif",
     badge: "Enterprise",
     rating: "4.8",
     slots: 4,
@@ -225,7 +220,7 @@ const servicesData = [
     copyFull:
       "AI-powered dashboards that analyze customer behavior, sales patterns, heatmaps, sentiment, funnels, and business trends in real-time.",
     button: "Analyze",
-    icon: "/icons/data-area.svg",
+    icon: "/Logo/icon-15 (1).svg",
     img: "/AI Data Analytics.avif",
     badge: "Smart",
     rating: "4.9",
@@ -238,7 +233,7 @@ const servicesData = [
     copyFull:
       "Dynamic AI personalization engines that tailor website UI, product recommendations, pricing, and content based on user behavior.",
     button: "Personalize",
-    icon: "/icons/motion-play.svg",
+    icon: "/Logo/icon-16 (1).svg",
     img: "/AI Personalization.avif",
     badge: "Advanced",
     rating: "4.8",
@@ -251,7 +246,7 @@ const servicesData = [
     copyFull:
       "We generate SEO-friendly blogs, social posts, ad copy, product descriptions, and YouTube scripts tailored to your brand style.",
     button: "Generate",
-    icon: "/icons/edit-sparkle.svg",
+    icon: "/Logo/icon-17 (1).svg",
     img: "/AI Content Generation.avif",
     badge: "Boost",
     rating: "4.9",
@@ -264,15 +259,13 @@ const servicesData = [
     copyFull:
       "We build ML models for prediction, fraud detection, anomaly alerts, recommendation systems, NLP tasks, and image classification.",
     button: "Build Model",
-    icon: "/icons/brain-circuit.svg",
+    icon: "/Logo/icon-18 (1).svg",
     img: "/Machine Learning Solutions.avif",
     badge: "AI+",
     rating: "5.0",
-    slots: 2,
-  },
+    slots: 2,
+  },
 ];
-
-
 
 export default function Services() {
   const [visible, setVisible] = useState({});
@@ -280,6 +273,11 @@ export default function Services() {
   const sliderRef = useRef(null);
   const [centerIndex, setCenterIndex] = useState(0);
   const [expanded, setExpanded] = useState({}); // mobile expand
+
+  // Modal state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalService, setModalService] = useState(null);
+  const modalRef = useRef(null);
 
   // Lazy reveal
   useEffect(() => {
@@ -352,6 +350,65 @@ export default function Services() {
   const toggleExpand = (id) =>
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
 
+  // compute sensible defaults
+  const computeDevs = (s) => {
+    try {
+      const val = s.slots ? Math.max(1, Math.min(4, Math.ceil(s.slots / 2))) : 1;
+      return val;
+    } catch {
+      return 1;
+    }
+  };
+
+  const computeDeadline = (s) => {
+    if (!s.slots) return "2–4 weeks";
+    if (s.slots <= 1) return "3–7 days";
+    if (s.slots <= 2) return "2–4 weeks";
+    if (s.slots <= 4) return "3–6 weeks";
+    return "1–3 months";
+  };
+
+  // Open modal for a service
+  const openModal = (service) => {
+    try {
+      console.log("openModal called for service:", service && service.title);
+      const price = service.price || "Contact for quote";
+      const deadline = service.deadline || computeDeadline(service);
+      const devs = service.devs || computeDevs(service);
+
+      setModalService({ ...service, price, deadline, devs });
+      setModalOpen(true);
+    } catch (err) {
+      console.error("Error opening modal:", err);
+    }
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalService(null);
+  };
+
+  // keyboard / overlay close / focus management
+  useEffect(() => {
+    const onKey = (ev) => {
+      if (ev.key === "Escape" && modalOpen) closeModal();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [modalOpen]);
+
+  // lock scroll when modal open
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.classList.add("no-scroll");
+      setTimeout(() => {
+        modalRef.current && modalRef.current.focus();
+      }, 120);
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [modalOpen]);
+
   return (
     <section className="services-section theme-anime" id="services">
       <h2 className="services-heading">Our Services</h2>
@@ -369,6 +426,8 @@ export default function Services() {
       <button
         className="slider-arrow left-arrow"
         onClick={() => scrollToIndex(centerIndex - 1)}
+        aria-label="Previous service"
+        type="button"
       >
         ‹
       </button>
@@ -376,6 +435,8 @@ export default function Services() {
       <button
         className="slider-arrow right-arrow"
         onClick={() => scrollToIndex(centerIndex + 1)}
+        aria-label="Next service"
+        type="button"
       >
         ›
       </button>
@@ -407,7 +468,12 @@ export default function Services() {
 
                   <img src={s.icon} className="service-icon" alt="" />
 
-                  <img src={s.img} className="bg-img" alt="" loading="lazy" />
+                  <img
+                    src={s.img}
+                    className="bg-img"
+                    alt={`${s.title} background`}
+                    loading="lazy"
+                  />
 
                   <div className="content">
                     <div className="badges">
@@ -424,8 +490,10 @@ export default function Services() {
 
                     <div className="cta-row">
                       <button
+                        type="button"
                         className="btn primary"
                         onClick={(e) => {
+                          e.preventDefault();
                           e.stopPropagation();
                           alert(`${s.button} clicked!`);
                         }}
@@ -434,11 +502,15 @@ export default function Services() {
                       </button>
 
                       <button
+                        type="button"
                         className="btn ghost"
                         onClick={(e) => {
+                          e.preventDefault();
                           e.stopPropagation();
-                          toggleExpand(s.id);
+                          openModal(s);
                         }}
+                        aria-haspopup="dialog"
+                        aria-controls={`service-modal-${s.id}`}
                       >
                         Learn more
                       </button>
@@ -453,6 +525,102 @@ export default function Services() {
           );
         })}
       </div>
+
+      {/* Modal (inline overlay) */}
+      {modalOpen && modalService && (
+        <div
+          className="service-modal-overlay"
+          role="presentation"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) closeModal();
+          }}
+        >
+          <div
+            className="service-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`modal-title-${modalService.id}`}
+            tabIndex={-1}
+            ref={modalRef}
+            id={`service-modal-${modalService.id}`}
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <button
+              className="modal-close"
+              onClick={closeModal}
+              aria-label="Close service details"
+              type="button"
+            >
+              ✕
+            </button>
+
+            <div className="modal-grid">
+              <div className="modal-media">
+                <img
+                  src={modalService.img}
+                  alt={modalService.title}
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="modal-body">
+                <h3 className="modal-title" id={`modal-title-${modalService.id}`}>
+                  {modalService.title}
+                </h3>
+
+                <div className="modal-badges">
+                  <span className="badge tag">{modalService.badge}</span>
+                  <span className="badge rating">★ {modalService.rating}</span>
+                  <span className="badge slots">⏳ {modalService.slots} slots</span>
+                </div>
+
+                <p className="modal-desc">{modalService.copyFull}</p>
+
+                <ul className="modal-meta">
+                  <li>
+                    <strong>Price:</strong> {modalService.price}
+                  </li>
+                  <li>
+                    <strong>Estimated Deadline:</strong> {modalService.deadline}
+                  </li>
+                  <li>
+                    <strong>Developers:</strong> {modalService.devs} developer
+                    {modalService.devs > 1 ? "s" : ""}
+                  </li>
+                </ul>
+
+                <div className="modal-actions">
+                  <button
+                    type="button"
+                    className="btn primary"
+                    onClick={() => {
+                      alert(`Proceed to onboard for: ${modalService.title}`);
+                    }}
+                  >
+                    Book A Call
+                  </button>
+                  <button
+                    type="button"
+                    className="btn ghost"
+                    onClick={() => {
+                      closeModal();
+                    }}
+                  >
+                    Close
+                  </button>
+                </div>
+
+                <div className="modal-footer-note">
+                  <small>
+                    All timelines and prices are estimates. Final scope & pricing
+                    will be confirmed after requirements review.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
