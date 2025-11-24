@@ -1,0 +1,160 @@
+/* ===========================
+   OVERLAY (BACKGROUND BLUR)
+   =========================== */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* ===========================
+   MODAL CONTAINER
+   =========================== */
+.auth-container {
+  width: 420px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: slideUp 0.28s ease-out;
+  font-family: "Inter", sans-serif;
+}
+
+/* ===========================
+   CLOSE BUTTON
+   =========================== */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 24px;
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.close-btn:hover {
+  color: #000;
+}
+
+/* ===========================
+   TITLE
+   =========================== */
+.auth-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* ===========================
+   SOCIAL LOGIN BUTTONS
+   =========================== */
+.auth-social {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Base Button */
+.social-btn {
+  border: 1px solid #dddddd;
+  background: #fff;
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.social-btn:hover {
+  border-color: #bbb;
+}
+
+/* Google Button */
+.social-btn.google img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Apple Button */
+.social-btn.apple {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+.social-btn.apple img {
+  filter: invert(1);
+  width: 20px;
+  height: 20px;
+}
+.social-btn.apple:hover {
+  background: #222;
+}
+
+/* Disabled (loading state) */
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ===========================
+   SPINNER (LOADING ANIMATION)
+   =========================== */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: auto;
+}
+
+.social-btn.apple .spinner {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
