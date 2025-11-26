@@ -10,6 +10,7 @@ import TrustSection from "./components/TrustSection";
 import Projects from "./components/Projects";
 
 import About from "./components/About";
+import Contact from "./components/Contact";
 
 
 // Lazy load the Services component
@@ -51,6 +52,9 @@ function App() {
 
       {/* ✅ NEW: Tech Stack Section placed right after Services */}
       
+
+      {/* Contact Section */}
+      <Contact />
 
       {/* Footer Section */}
       <Footer />
