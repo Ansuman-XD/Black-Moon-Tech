@@ -3,6 +3,17 @@ import React, { useEffect, useRef, useState, useCallback, memo } from "react";
 import "./Projects.css";
 
 const PROJECTS = [
+   {
+    title: "WeatherSphere",
+    description: ["Live Weather API", "Geo Tracking", "Admin Panel"],
+    image: "weatherapp.avif",
+    folder: "images",
+    link: "https://github.com/SAMARESH-PRADHAN/WeatherSphere",
+    about:
+      "Our platform provides real-time weather updates for any city, helping you stay informed at all times. It includes 5-day forecasts so you can plan your week efficiently. You’ll also get the latest weather news presented in clean, easy-to-read cards. An interactive map displays live and forecasted weather in a visually engaging way. Historical temperature and rainfall charts let you track trends over time. Satellite data is integrated through Google Earth Engine for advanced insights. You can download weather data as CSV files or images for offline use. A feedback and contact system with filtering, sorting, and modal views ensures smooth communication. Forgot password functionality with OTP verification via email keeps your account secure. Finally, the admin dashboard provides user management, feedback statistics, and contact message tracking.",
+    tech: ["HTML","CSS","Jquery", "OpenWeather API", "Google earth engine", "Chart.js"],
+    screenshots: ["../public/ProjectImages/weather1.png", "../public/ProjectImages/weather2.png", "../public/ProjectImages/weather3.png"],
+  },
   {
     title: "Black Moon Portfolio Platform",
     description: ["React + Vite", "Neon UI", "Premium Animations"],
@@ -14,17 +25,7 @@ const PROJECTS = [
     tech: ["React", "Vite", "CSS", "Framer Motion", "SVG"],
     screenshots: ["bm-01.avif", "bm-02.avif", "bm-03.avif"],
   },
-  {
-    title: "HyperCast Weather Intelligence",
-    description: ["Live Weather API", "Geo Tracking", "Animated UI"],
-    image: "weatherapp.avif",
-    folder: "images",
-    link: "#",
-    about:
-      "A realtime weather intelligence dashboard with geolocation, animated backgrounds, hourly/daily forecasts and interactive map overlays. Built for quick glanceable weather insights.",
-    tech: ["React", "OpenWeather API", "Mapbox", "Chart.js"],
-    screenshots: ["hc-01.avif", "hc-02.avif", "hc-03.avif"],
-  },
+ 
   {
     title: "NovaCart E-Commerce Interface",
     description: ["AI Filters", "Fast Checkout UX", "Product UI"],
@@ -294,7 +295,7 @@ const Projects = () => {
               View Project →
             </button>
 
-            {p.link && (
+            {/* {p.link && (
               <a
                 className="pm-btn pm-btn-outline"
                 href={p.link}
@@ -304,7 +305,7 @@ const Projects = () => {
               >
                 Live ↗
               </a>
-            )}
+            )} */}
           </div>
         </div>
       </article>

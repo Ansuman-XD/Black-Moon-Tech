@@ -4,13 +4,12 @@
 
 .trust-section {
   padding: 70px 20px;
-  background: #0b0b0f;
-  color: #fff;
+background: radial-gradient(circle at top, #111 0%, #050508 100%);  color: #fff;
   margin-top: 40px;
 }
 
 /* Title */
-.trust-title {
+/* .trust-title {
   text-align: center;
   font-size: 2.2rem;
   background: linear-gradient(90deg, #efebeeff, #f9f8f7ff);
@@ -19,12 +18,12 @@
   font-weight: 800;
   font-family: "Shadows Into Light", cursive;
   margin-bottom: 35px;
-}
+} */
 
 /* ===========================================
    LOGOS
 =========================================== */
-.logo-row {
+/* .logo-row {
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
@@ -43,15 +42,17 @@
   opacity: 1;
   transform: scale(1.1);
   filter: drop-shadow(0 0 12px rgba(255, 88, 200, 0.7));
-}
+} */
 
 /* ===========================================
    STATS GRID
 =========================================== */
 .stats-grid {
-  display: grid;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 20px;
+  gap: 40px;
   margin-bottom: 50px;
 }
 
@@ -75,13 +76,16 @@
   font-weight: 800;
   background: linear-gradient(90deg, #ff5dcc, #ffc26b);
   -webkit-background-clip: text;
-  color: transparent;
+  color: #ff77e9;
   margin-bottom: 5px;
+  text-shadow: 0 0 12px rgba(255, 120, 230, 0.6);
 }
 
 .stat-label {
   opacity: 0.9;
   font-size: 0.9rem;
+  color: #fff;
+  margin-top: 4px;
 }
 
 /* ===========================================
@@ -95,6 +99,13 @@
   font-weight: 700;
   color: #ffdcee;
 }
+/* Slider Wrapper */
+.testimonial-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 
 /* Manual swipe scroll */
 .testimonial-slider {
@@ -105,20 +116,38 @@
   padding-bottom: 10px;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  padding: 20px 0;
+
 }
 
 .testimonial-slider::-webkit-scrollbar {
   display: none;
+    height: 8px;
+
+}
+.testimonial-slider::-webkit-scrollbar-thumb {
+  background: #ff77e9;
+  border-radius: 4px;
+  box-shadow: 0 0 4px #ff77e9;
+}
+
+.testimonial-slider::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
 }
 
 .testimonial-card {
+  min-width: 280px;
+  max-width: 280px;
   flex: 0 0 280px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
   padding: 18px;
   text-align: center;
-  transition: 0.3s;
+   backdrop-filter: blur(8px);
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .testimonial-card:hover {
@@ -152,6 +181,39 @@
   opacity: 0.7;
 }
 
+/* Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ff77e9;
+  color: #ff77e9;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.arrow:hover {
+  background: rgba(255, 119, 233, 0.8);
+  color: #111;
+}
+
+.arrow.left {
+  left: -20px;
+}
+
+.arrow.right {
+  right: -20px;
+}
+
 /* =====================================================
    📱 RESPONSIVE DESIGN (Mobile + Tablet)
 ===================================================== */
@@ -169,6 +231,17 @@
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .testimonial-card { flex: 0 0 220px; padding: 14px; }
   .testimonial-img { width: 55px; height: 55px; }
+   /* .arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    left: -10px;
+    right: -10px;
+  }
+   .testimonial-text {
+    font-size: 0.85rem;
+  } */
+
 }
 
 @media (max-width: 480px) {

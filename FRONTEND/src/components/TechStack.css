@@ -12,15 +12,15 @@
 /* MAIN TITLE */
 .tech-title {
   text-align: center;
-  font-size: 2.8rem;
+  font-size: 2.3rem;
   font-family: "Shadows Into Light", cursive;
   font-weight: 800;
-  background: linear-gradient(90deg, #ff9aed, #e6f7ff);
-  -webkit-background-clip: text;
-  color: transparent;
+  /* background: linear-gradient(90deg, #ff9aed, #e6f7ff);
+  -webkit-background-clip: text; */
+  ;
   margin-bottom: 50px;
   letter-spacing: 1px;
-  text-shadow: 0 0 18px rgba(255, 130, 220, 0.5);
+  /* text-shadow: 0 0 18px rgba(255, 130, 220, 0.5); */
 }
 
 /* SECTION SUBTITLE */

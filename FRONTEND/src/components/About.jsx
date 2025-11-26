@@ -203,8 +203,11 @@ export default function AboutNew() {
           </h1>
 
           <p className="ng-vision">
-            Our vision is to create digital products that feel human — elegant, fast, and meaningful.
-            We build systems that help people do more with less friction and that scale across devices and cultures.
+           BlackMoon Tech is a new-age IT solutions company from Odisha, built with the mission to
+simplify technology for businesses. We empower brands with modern web development,
+AI‑powered tools, automation systems, and digital transformation services.
+Our focus is simple: build smarter solutions, deliver premium quality, and help
+businesses grow with technology.
           </p>
 
           <p className="ng-intro" aria-live="polite">

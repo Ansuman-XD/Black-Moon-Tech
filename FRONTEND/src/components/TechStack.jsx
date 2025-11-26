@@ -7,24 +7,24 @@ import "./TechStack.css";
 
 export default function TechStack() {
   const techStack = [
-    { name: "React", file: "react.svg" },
-    { name: "Next.js", file: "nextjs-icon.svg" },
-    { name: "JavaScript", file: "javascript.svg" },
-    { name: "TypeScript", file: "typescript-icon.svg" },
-    { name: "Python", file: "python.svg" },
-    { name: "Node.js", file: "nodejs-icon.svg" },
-    { name: "Express.js", file: "express.svg" },
     { name: "HTML", file: "html-5.svg" },
     { name: "CSS", file: "css-3.svg" },
     { name: "Tailwind CSS", file: "tailwindcss-icon.svg" },
     { name: "Bootstrap", file: "bootstrap.svg" },
+    { name: "JavaScript", file: "javascript.svg" },
+    { name: "React", file: "react.svg" },
+    { name: "Next.js", file: "nextjs-icon.svg" },
+    { name: "TypeScript", file: "typescript-icon.svg" },
+    { name: "Python", file: "python.svg" },
+    { name: "Node.js", file: "nodejs-icon.svg" },
+    { name: "Express.js", file: "express.svg" },
+    { name: "MongoDB", file: "mongodb-icon.svg" },
+    { name: "PostgreSQL", file: "postgresql.svg" },
+    { name: "MySQL", file: "mysql.svg" },
     { name: "Git", file: "git-icon.svg" },
     { name: "GitHub", file: "github-icon.svg" },
     { name: "Docker", file: "docker-icon.svg" },
     { name: "Kubernetes", file: "kubernetes.svg" },
-    { name: "MongoDB", file: "mongodb-icon.svg" },
-    { name: "PostgreSQL", file: "postgresql.svg" },
-    { name: "MySQL", file: "mysql.svg" },
     { name: "Figma", file: "figma.svg" },
   ];
 
@@ -35,7 +35,7 @@ export default function TechStack() {
     { name: "DevOps Essentials", file: "gitlab.svg" },
     { name: "Cybersecurity Fundamentals", file: "fortinet.svg" },
     { name: "AI / ML Certification", file: "tensorflow.svg" },
-    { name: "Linux Essentials", file: "linux-tux.svg" },
+    // { name: "Linux Essentials", file: "linux-tux.svg" },
     { name: "OpenAI Certification", file: "openai-icon.svg" },
   ];
 

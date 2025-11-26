@@ -496,6 +496,43 @@ html { scroll-behavior: smooth; }
   100% { opacity: 1; }
 }
 
+.contact-popup {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(20,20,28,0.95), rgba(10,10,16,0.95));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+  z-index: 150;
+  animation: popupFade 0.3s ease forwards;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.contact-popup h4 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #ffb86b;
+}
+
+.contact-popup p {
+  margin: 4px 0;
+  font-size: 1rem;
+}
+
+.contact-popup .btn {
+  margin-top: 8px;
+}
+
+@keyframes popupFade {
+  0% { opacity: 0; transform: translate(-50%, 20px); }
+  100% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+
 /* responsive modal -> stack on small screens */
 @media (max-width: 900px) {
   .service-modal {

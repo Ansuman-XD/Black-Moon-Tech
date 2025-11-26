@@ -2,20 +2,20 @@
 // 🔥 Trust Section (Logos + Stats + Testimonials)
 // =============================================
 
-import React from "react";
+import React, { useRef } from "react";
 import "./TrustSection.css";
 
 export default function TrustSection() {
-  const logos = [
-    "logos:google-icon",
-    "logos:amazon-icon",
-    "logos:microsoft",
-    "logos:netflix-icon",
-    "logos:github-icon",
-    "logos:figma",
-    "logos:upwork",
-    "logos:fiverr",
-  ];
+  // const logos = [
+  //   "logos:google-icon",
+  //   "logos:amazon-icon",
+  //   "logos:microsoft",
+  //   "logos:netflix-icon",
+  //   "logos:github-icon",
+  //   "logos:figma",
+  //   "logos:upwork",
+  //   "logos:fiverr",
+  // ];
 
   const stats = [
     { number: "12+", label: "Projects Completed" },
@@ -46,14 +46,68 @@ export default function TrustSection() {
         "Best developer I have worked with. Clean code, great communication, 10/10.",
       img: "https://i.pravatar.cc/100?img=13",
     },
+    {
+      name: "Amit Sharma",
+      role: "Startup Founder",
+      review:
+        "Amazing work! The website felt premium, fast and modern. Their design sense is next level.",
+      img: "https://i.pravatar.cc/100?img=1",
+    },
+    {
+      name: "Riya Patel",
+      role: "Business Owner",
+      review:
+        "Delivered before deadline with perfect quality. Very professional and creative team.",
+      img: "https://i.pravatar.cc/100?img=5",
+    },
+    {
+      name: "John Wilson",
+      role: "Upwork Client",
+      review:
+        "Best developer I have worked with. Clean code, great communication, 10/10.",
+      img: "https://i.pravatar.cc/100?img=13",
+    },
+    {
+      name: "Amit Sharma",
+      role: "Startup Founder",
+      review:
+        "Amazing work! The website felt premium, fast and modern. Their design sense is next level.",
+      img: "https://i.pravatar.cc/100?img=1",
+    },
+    {
+      name: "Riya Patel",
+      role: "Business Owner",
+      review:
+        "Delivered before deadline with perfect quality. Very professional and creative team.",
+      img: "https://i.pravatar.cc/100?img=5",
+    },
+    {
+      name: "John Wilson",
+      role: "Upwork Client",
+      review:
+        "Best developer I have worked with. Clean code, great communication, 10/10.",
+      img: "https://i.pravatar.cc/100?img=13",
+    },
   ];
+   const sliderRef = useRef();
+
+  const scroll = (direction) => {
+    if (sliderRef.current) {
+      const scrollAmount = 300; // px per click
+      if (direction === "left") {
+        sliderRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      } else {
+        sliderRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <section className="trust-section" id="trust">
-      <h2 className="trust-title">Trusted By Leading Brands Of ODISHA</h2>
+      {/* <h2 className="trust-title">Trusted By Leading Brands Of ODISHA</h2> */}
 
       {/* LOGOS */}
-      <div className="logo-row">
+      {/* <div className="logo-row">
         {logos.map((l, i) => (
           <img
             key={i}
@@ -62,7 +116,7 @@ export default function TrustSection() {
             alt="brand"
           />
         ))}
-      </div>
+      </div> */}
 
       {/* STATS */}
       <div className="stats-grid">
@@ -76,8 +130,11 @@ export default function TrustSection() {
 
       {/* TESTIMONIAL SLIDER */}
       <h3 className="testimonial-title">What Our Clients Say</h3>
-
-      <div className="testimonial-slider" id="testimonialSlider">
+ <div className="testimonial-wrapper">
+        <button className="arrow left" onClick={() => scroll("left")}>
+          ◀
+        </button>
+      <div className="testimonial-slider" id="testimonialSlider" ref={sliderRef}>
         {testimonials.map((t, i) => (
           <div key={i} className="testimonial-card">
             <img src={t.img} alt={t.name} className="testimonial-img" />
@@ -86,6 +143,10 @@ export default function TrustSection() {
             <span className="testimonial-role">{t.role}</span>
           </div>
         ))}
+      </div>
+       <button className="arrow right" onClick={() => scroll("right")}>
+          ▶
+        </button>
       </div>
     </section>
   );

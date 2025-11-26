@@ -13,7 +13,7 @@ const servicesData = [
     copyShort: "Fast, modern & scalable websites.",
     copyFull:
       "We build pixel-perfect, high-performance sites with React, Next.js, TypeScript and blazing-speed SSR.",
-    button: "Explore",
+    button: "Learn more",
     icon: "/Logo/icon-1 (1).svg",
     img: "/Custom Website Development.avif",
     badge: "Most Popular",
@@ -29,7 +29,7 @@ const servicesData = [
     copyShort: "Design systems & prototypes.",
     copyFull:
       "User-first design, interactive prototypes & design systems crafted to convert and scale.",
-    button: "View Designs",
+    button: "Learn more",
     icon: "/Logo/icon-2 (1).svg",
     img: "/UIUXDesign.avif",
     badge: "Editor’s Pick",
@@ -45,7 +45,7 @@ const servicesData = [
     copyShort: "Web & mobile apps end-to-end.",
     copyFull:
       "APIs, auth, real-time systems, databases & scalable hosting pipelines for enterprise products.",
-    button: "Build Now",
+    button: "Learn more",
     icon: "/Logo/icon-3 (1).svg",
     img: "/Full-Stack Apps.avif",
     badge: "Enterprise",
@@ -61,7 +61,7 @@ const servicesData = [
     copyShort: "AI assistants & automation.",
     copyFull:
       "Smart assistants & customer support bots powered by LLMs and custom fine-tuning.",
-    button: "Start AI",
+    button: "Learn more",
     icon: "/Logo/icon-4 (1).svg",
     img: "/AI Chatbots.avif",
     badge: "Hot",
@@ -77,7 +77,7 @@ const servicesData = [
     copyShort: "Fast, secure, global hosting.",
     copyFull:
       "Deploy apps with auto-scaling, secure backups, CI/CD pipelines & global edge caching.",
-    button: "Deploy Now",
+    button: "Learn more",
     icon: "/Logo/icon-5 (1).svg",
     img: "/Cloud Hosting & Deployment.avif",
     badge: "Pro",
@@ -93,7 +93,7 @@ const servicesData = [
     copyShort: "Rank higher & get real traffic.",
     copyFull:
       "Advanced keyword strategy, speed optimization, schema markup, backlinks, & AI-powered content pipelines.",
-    button: "Boost SEO",
+    button: "Learn more",
     icon: "/Logo/icon-6 (1).svg",
     img: "/SEO & Ranking Boost.avif",
     badge: "High ROI",
@@ -109,7 +109,7 @@ const servicesData = [
     copyShort: "Payments, AI APIs, auth, automation.",
     copyFull:
       "Stripe payments, OAuth login, AI APIs, automation pipelines, analytics dashboards & service integrations.",
-    button: "Integrate",
+    button: "Learn more",
     icon: "/Logo/icon-7 (1).svg",
     img: "/AI Automation.avif",
     badge: "Tech",
@@ -125,7 +125,7 @@ const servicesData = [
     copyShort: "Protect your website & users.",
     copyFull:
       "Security audits, penetration tests, firewall setup, DDoS protection, malware cleanup & secure coding.",
-    button: "Secure Now",
+    button: "Learn more",
     icon: "/Logo/icon-8 (1).svg",
     img: "/Cybersecurity & Audit.avif",
     badge: "Priority",
@@ -141,7 +141,7 @@ const servicesData = [
     copyShort: "Automate your entire business.",
     copyFull:
       "We build AI-powered automation pipelines that handle email replies, CRM updates, lead scoring, content generation, scheduling, and customer service workflows.",
-    button: "Automate",
+    button: "Learn more",
     icon: "/Logo/icon-9 (1).svg",
     img: "/AI Automation Workflows.avif",
     badge: "New",
@@ -154,7 +154,7 @@ const servicesData = [
     copyShort: "Custom AI art for brands.",
     copyFull:
       "We create unique AI-generated illustrations, anime art, logos, thumbnails, and product visuals using advanced diffusion models and style-transfer pipelines.",
-    button: "Generate Art",
+    button: "Learn more",
     icon: "/Logo/icon-10 (1).svg",
     img: "/AI Image Generation.avif",
     badge: "Creative",
@@ -167,7 +167,7 @@ const servicesData = [
     copyShort: "Cinematic AI motion visuals.",
     copyFull:
       "High-quality AI-generated cinematic scenes, anime-style motion shots, and product videos using text-to-video and storyboard AI systems.",
-    button: "Create Video",
+    button: "Learn more",
     icon: "/Logo/icon-11 (1).svg",
     img: "/AI Video Generation.avif",
     badge: "Trending",
@@ -180,7 +180,7 @@ const servicesData = [
     copyShort: "Build your own Jarvis.",
     copyFull:
       "Custom voice-controlled AI that listens, understands, and performs actions. Perfect for businesses, apps, websites, and automation.",
-    button: "Build Assistant",
+    button: "Learn more",
     icon: "/Logo/icon-12 (1).svg",
     img: "/AI Voice Assistants.avif",
     badge: "Hot",
@@ -193,7 +193,7 @@ const servicesData = [
     copyShort: "Fine-tune AI on your data.",
     copyFull:
       "We train AI chatbots using your company’s documents, FAQs, product manuals, emails, and website content for accurate and personalized support.",
-    button: "Train Bot",
+    button: "Learn more",
     icon: "/Logo/icon-13 (1).svg",
     img: "/AI Chatbot Training.avif",
     badge: "AI Pro",
@@ -206,7 +206,7 @@ const servicesData = [
     copyShort: "Add GPT, Vision, Speech to your app.",
     copyFull:
       "We integrate OpenAI, Claude, Gemini, Stability, Speech-to-Text, Vision AI, and embeddings into your existing website or mobile app.",
-    button: "Integrate AI",
+    button: "Learn more",
     icon: "/Logo/icon-14 (1).svg",
     img: "/AI Content Generation.avif",
     badge: "Enterprise",
@@ -219,7 +219,7 @@ const servicesData = [
     copyShort: "Understand your users instantly.",
     copyFull:
       "AI-powered dashboards that analyze customer behavior, sales patterns, heatmaps, sentiment, funnels, and business trends in real-time.",
-    button: "Analyze",
+    button: "Learn more",
     icon: "/Logo/icon-15 (1).svg",
     img: "/AI Data Analytics.avif",
     badge: "Smart",
@@ -232,7 +232,7 @@ const servicesData = [
     copyShort: "AI that adapts to users.",
     copyFull:
       "Dynamic AI personalization engines that tailor website UI, product recommendations, pricing, and content based on user behavior.",
-    button: "Personalize",
+    button: "Learn more",
     icon: "/Logo/icon-16 (1).svg",
     img: "/AI Personalization.avif",
     badge: "Advanced",
@@ -245,7 +245,7 @@ const servicesData = [
     copyShort: "Blogs, ads, captions & scripts.",
     copyFull:
       "We generate SEO-friendly blogs, social posts, ad copy, product descriptions, and YouTube scripts tailored to your brand style.",
-    button: "Generate",
+    button: "Learn more",
     icon: "/Logo/icon-17 (1).svg",
     img: "/AI Content Generation.avif",
     badge: "Boost",
@@ -258,7 +258,7 @@ const servicesData = [
     copyShort: "Custom ML models for business.",
     copyFull:
       "We build ML models for prediction, fraud detection, anomaly alerts, recommendation systems, NLP tasks, and image classification.",
-    button: "Build Model",
+    button: "Learn more",
     icon: "/Logo/icon-18 (1).svg",
     img: "/Machine Learning Solutions.avif",
     badge: "AI+",
@@ -273,6 +273,7 @@ export default function Services() {
   const sliderRef = useRef(null);
   const [centerIndex, setCenterIndex] = useState(0);
   const [expanded, setExpanded] = useState({}); // mobile expand
+  const [showContact, setShowContact] = useState(false);
 
   // Modal state
   const [modalOpen, setModalOpen] = useState(false);
@@ -353,7 +354,9 @@ export default function Services() {
   // compute sensible defaults
   const computeDevs = (s) => {
     try {
-      const val = s.slots ? Math.max(1, Math.min(4, Math.ceil(s.slots / 2))) : 1;
+      const val = s.slots
+        ? Math.max(1, Math.min(4, Math.ceil(s.slots / 2)))
+        : 1;
       return val;
     } catch {
       return 1;
@@ -495,13 +498,13 @@ export default function Services() {
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          alert(`${s.button} clicked!`);
+                          openModal(s);
                         }}
                       >
                         {s.button}
                       </button>
 
-                      <button
+                      {/* <button
                         type="button"
                         className="btn ghost"
                         onClick={(e) => {
@@ -513,7 +516,7 @@ export default function Services() {
                         aria-controls={`service-modal-${s.id}`}
                       >
                         Learn more
-                      </button>
+                      </button> */}
                     </div>
                   </div>
 
@@ -564,14 +567,19 @@ export default function Services() {
               </div>
 
               <div className="modal-body">
-                <h3 className="modal-title" id={`modal-title-${modalService.id}`}>
+                <h3
+                  className="modal-title"
+                  id={`modal-title-${modalService.id}`}
+                >
                   {modalService.title}
                 </h3>
 
                 <div className="modal-badges">
                   <span className="badge tag">{modalService.badge}</span>
                   <span className="badge rating">★ {modalService.rating}</span>
-                  <span className="badge slots">⏳ {modalService.slots} slots</span>
+                  <span className="badge slots">
+                    ⏳ {modalService.slots} slots
+                  </span>
                 </div>
 
                 <p className="modal-desc">{modalService.copyFull}</p>
@@ -593,8 +601,10 @@ export default function Services() {
                   <button
                     type="button"
                     className="btn primary"
-                    onClick={() => {
-                      alert(`Proceed to onboard for: ${modalService.title}`);
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setShowContact(true);
                     }}
                   >
                     Book A Call
@@ -609,11 +619,26 @@ export default function Services() {
                     Close
                   </button>
                 </div>
-
+                {/* Contact popup */}
+                {showContact && (
+                  <div className="contact-popup">
+                    <h4>Contact Us</h4>
+                    <p>📞 +91 82603 68742</p>
+                    <p>📞 +91 63728 76407</p>
+                    <p>📞 +91 79789 61272</p>
+                    <p>✉️ contact@blackmoon.com</p>
+                    <button
+                      className="btn ghost"
+                      onClick={() => setShowContact(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                )}
                 <div className="modal-footer-note">
                   <small>
-                    All timelines and prices are estimates. Final scope & pricing
-                    will be confirmed after requirements review.
+                    All timelines and prices are estimates. Final scope &
+                    pricing will be confirmed after requirements review.
                   </small>
                 </div>
               </div>
