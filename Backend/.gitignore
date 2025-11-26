@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+Backend/node_modules/
+FRONTEND/node_modules/
+
+# Environment variables
+.env
+Backend/.env
+FRONTEND/.env
+
+# Build outputs
+dist/
+build/
+FRONTEND/dist/
+Backend/dist/
+
+# VSCode
+.vscode/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

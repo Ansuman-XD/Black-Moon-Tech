@@ -1,21 +1,25 @@
 import express from "express";
 import cors from "cors";
-import helmet from "helmet";
-import compression from "compression";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
-app.use(cors());
-app.use(helmet());
-app.use(compression());
+app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Backend server running...");
-});
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  })
+);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.use("/auth", authRoutes);
+
+app.listen(process.env.PORT, () =>
+  console.log(`Server running on port ${process.env.PORT}`)
+);

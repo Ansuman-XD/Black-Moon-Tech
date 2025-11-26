@@ -2,16 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>frontend</title>
+
+    <!-- ======================== -->
+    <!-- 🚀 PERFORMANCE BOOSTERS -->
+    <!-- ======================== -->
+
+    <!-- Preload Hero Images (Boost LCP) -->
+    <link rel="preload" href="/images/blackmoon.avif" as="image" />
+
+    <!-- Preload Main CSS (Vite bundles) -->
+    <link rel="preload" href="/assets/index.css" as="style" />
+
+    <!-- Preload Main JS Bundle -->
+    <link rel="modulepreload" href="/assets/index.js" />
+
+    <!-- Faster Rendering -->
+    <meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width" />
+
+    <!-- Prevent Layout Shifts -->
+    <meta name="theme-color" content="#000" />
+
+
+    <!-- ======================== -->
+    <!-- 🔐 AUTH SCRIPTS REQUIRED -->
+    <!-- ======================== -->
+
+    <!-- ⭐ GOOGLE LOGIN SDK (REQUIRED) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- ⭐ APPLE LOGIN SDK (REQUIRED) -->
+    <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+
   </head>
+
   <body>
     <div id="root"></div>
 
-    
+    <!-- Main Script -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
