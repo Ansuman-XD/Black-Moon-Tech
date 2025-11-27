@@ -46,13 +46,13 @@
   justify-content: space-between;
   align-items: center;
    gap: 13rem;
-   margin-top: 10rem;
+   margin-top: 15rem;
 }
 
 /* =======================
    LEFT GLASS CARD
 ======================= */
-.overlay {
+.h-overlay {
   color: #fcfbfbff;
   max-width: 600px;
   padding: 2rem 2rem;
@@ -66,6 +66,14 @@
   font-style: normal;
   font-weight: 400;
   animation: fadeInGlass 1.8s ease-out forwards;
+}
+.h-badge{
+  background: linear-gradient(90deg, #ff5dcc, #ffc26b);
+  border-radius: 10px;
+  color: #000;
+  display: flex;
+  font-weight: 600;
+  justify-content: center;
 }
 
 /* Title */
@@ -106,7 +114,7 @@
 } */
 
 .btn-light:hover {
-  background: linear-gradient(90deg, #ff5dcc, #ffc26b);;
+  background: linear-gradient(90deg, #ff5dcc, #ffc26b);
   color: #000;
 }
 
@@ -189,18 +197,6 @@
 
 
 
-.trust-title {
-  text-align: center;
-  margin-top: 13rem;
-  position: relative;
-  font-size: 2.2rem;
-  background: linear-gradient(90deg, #efebeeff, #f9f8f7ff);
-  -webkit-background-clip: text;
-  color: transparent;
-  font-weight: 800;
-  font-family: "Shadows Into Light", cursive;
-  margin-bottom: 35px;
-}
 
 /* ===========================================
    LOGOS
@@ -212,18 +208,43 @@
   justify-content: center;
   margin-bottom: 50px;
 } */
- .h-logo{
+ /* .h-logo{
   margin-top: 8rem;
- }
+ } */
+  .h-logo {
+  position: relative;
+  /* margin-top: 5rem; */
+  z-index: 5; /* above video */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ .trust-title {
+  text-align: center;
+  margin-top: 5rem;
+  position: relative;
+  font-size: 2.2rem;
+  background: linear-gradient(90deg, #efebeeff, #f9f8f7ff);
+  -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+  color: white;
+  font-weight: 800;
+  font-family: "Shadows Into Light", cursive;
+  margin-bottom: 35px;
+  z-index: 5;
+}
+
 /* Partner Title */
-.trust-title {
+/* .trust-title {
   text-align: center;
   font-size: 2rem;
   margin-top: 30px;
   margin-bottom: 20px;
   color: #fff;
   font-weight: 600;
-}
+} */
 
 /* Slider Wrapper */
 .logo-slider {
@@ -232,6 +253,11 @@
   width: 100%;
   padding: 20px 0;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.15); /* subtle background behind logos */
+  border-radius: 12px;
 }
 
 /* Track that scrolls */
@@ -243,13 +269,18 @@
 
 /* Logo Style */
 .trust-logo {
+  flex-shrink: 0; /* prevent shrinking */
   height: 60px;
-  filter: brightness(1) saturate(1.2);
-  transition: transform 0.3s;
+  width: auto;
+  opacity: 0.75;
+  filter: drop-shadow(0 0 8px rgba(255, 88, 200, 0.3));
+  transition: 0.3s ease;
 }
 
 .trust-logo:hover {
+  opacity: 1;
   transform: scale(1.15);
+   filter: drop-shadow(0 0 12px rgba(255, 88, 200, 0.7));
 }
 
 /* Animation */
@@ -262,7 +293,7 @@
   }
 }
 
-
+/* 
 .trust-logo {
   width: 70px;
   opacity: 0.75;
@@ -274,7 +305,7 @@
   opacity: 1;
   transform: scale(1.1);
   filter: drop-shadow(0 0 12px rgba(255, 88, 200, 0.7));
-}
+} */
 
 /* =======================
    ANIMATIONS
@@ -302,7 +333,7 @@
     margin-top: 3rem;
   }
 
-  .overlay,
+  .h-overlay,
   .branding {
     max-width: 95%;
   }
@@ -333,9 +364,18 @@
   margin-top: -5rem;
   }
   .hero-content{
-    margin-top: 10rem;
+    margin-top: 13rem;
   }
-  /* .h-logo{
+  .h-logo{
     margin-top: 10rem;
-  } */
+    padding: 0 10px;
+  }
+  .logo-track {
+    gap: 30px;
+    animation: scroll 10s linear infinite; /* slower on mobile */
+  }
+
+  .trust-logo {
+    height: 50px;
+  }
 }

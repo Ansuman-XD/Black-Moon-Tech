@@ -49,8 +49,8 @@ const Hero = () => {
 
         <div className="hero-content">
           {/* Left Overlay Content */}
-          <div className="overlay">
-            <div className="badge">
+          <div className="h-overlay">
+            <div className="h-badge">
               <span className="dot"></span> Empowering the Digital Universe
             </div>
 
@@ -93,7 +93,7 @@ const Hero = () => {
           {/* LOGOS */}
           <div className="logo-slider">
             <div className="logo-track">
-              {logos.map((l, i) => (
+              {[...logos, ...logos].map((l, i) => (
                 <img key={i} src={l} className="trust-logo" alt="brand" />
               ))}
             </div>
