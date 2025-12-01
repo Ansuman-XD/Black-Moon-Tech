@@ -19,21 +19,15 @@ const Hero = () => {
 
   // Logo slider (your stashed logic)
   const logos = [
-    "../public/Logo/orsacLogo.svg",
-    "../public/Logo/uncLogo.svg",
-    "../public/Logo/usbmLogo.svg",
-    "../public/Logo/orsacLogo.svg",
-    "../public/Logo/uncLogo.svg",
-    "../public/Logo/usbmLogo.svg",
-    "../public/Logo/orsacLogo.svg",
-    "../public/Logo/uncLogo.svg",
-    "../public/Logo/usbmLogo.svg",
+    "../public/Logo/orsacLogo.png",
+    "../public/Logo/uncLogo.webp",
+    "../public/Logo/usbmLogo.jpg",
+    "../public/Logo/odisha-offroaders.webp",
   ];
 
   return (
     <>
       <section className="hero" id="home">
-
         {/* Background Video */}
         <video
           className="video-bg"
@@ -76,7 +70,8 @@ const Hero = () => {
             </h2>
 
             <p className="subtext">
-              Supercharge your digital presence with <b>Black Moon</b> — futuristic automation and growth.
+              Supercharge your digital presence with <b>Black Moon</b> —
+              futuristic automation and growth.
             </p>
 
             <div className="cta-form">
@@ -87,14 +82,15 @@ const Hero = () => {
           </div>
         </div>
 
+        {/* Carousal logo scrolling */}
         <div className="h-logo">
           <h2 className="trust-title">Our Trusted Partners</h2>
 
           {/* LOGOS */}
           <div className="logo-slider">
             <div className="logo-track">
-              {[...logos, ...logos].map((l, i) => (
-                <img key={i} src={l} className="trust-logo" alt="brand" />
+              {logos.concat(logos).map((l, i) => (
+                <img key={i} src={l} className="trust-logo" alt="logo" />
               ))}
             </div>
           </div>
