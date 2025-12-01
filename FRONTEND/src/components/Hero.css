@@ -201,19 +201,8 @@
 /* ===========================================
    LOGOS
 =========================================== */
-/* .logo-row {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 50px;
-} */
- /* .h-logo{
-  margin-top: 8rem;
- } */
   .h-logo {
   position: relative;
-  /* margin-top: 5rem; */
   z-index: 5; /* above video */
   width: 100%;
   display: flex;
@@ -236,45 +225,34 @@
   z-index: 5;
 }
 
-/* Partner Title */
-/* .trust-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  color: #fff;
-  font-weight: 600;
-} */
-
 /* Slider Wrapper */
 .logo-slider {
   overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
+  width: 40%;
   padding: 20px 0;
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.15); /* subtle background behind logos */
-  border-radius: 12px;
 }
 
 /* Track that scrolls */
 .logo-track {
   display: flex;
   gap: 60px;
-  animation: scroll 8s linear infinite;
+  width: max-content; /* auto width = perfect infinite loop */
+  align-items: center;
+  animation: scrollLeft 13s linear infinite;
+  will-change: transform;
 }
 
 /* Logo Style */
 .trust-logo {
-  flex-shrink: 0; /* prevent shrinking */
+  flex-shrink: 0; 
   height: 60px;
   width: auto;
   opacity: 0.75;
+  /* flex: 0 0 auto;  */
   filter: drop-shadow(0 0 8px rgba(255, 88, 200, 0.3));
-  transition: 0.3s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 .trust-logo:hover {
@@ -284,7 +262,7 @@
 }
 
 /* Animation */
-@keyframes scroll {
+@keyframes scrollLeft {
   0% {
     transform: translateX(0);
   }
@@ -292,21 +270,10 @@
     transform: translateX(-50%);
   }
 }
-
-/* 
-.trust-logo {
-  width: 70px;
-  opacity: 0.75;
-  filter: drop-shadow(0 0 8px rgba(255, 88, 200, 0.3));
-  transition: 0.3s ease;
+/* Pause on hover — optional but nice UX */
+.logo-slider:hover .logo-track {
+  animation-play-state: paused;
 }
-
-.trust-logo:hover {
-  opacity: 1;
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 12px rgba(255, 88, 200, 0.7));
-} */
-
 /* =======================
    ANIMATIONS
 ======================= */
@@ -372,10 +339,13 @@
   }
   .logo-track {
     gap: 30px;
-    animation: scroll 10s linear infinite; /* slower on mobile */
+    animation-duration: 10s;
   }
 
   .trust-logo {
     height: 50px;
+  }
+  .logo-slider {
+    width: 80%;
   }
 }
