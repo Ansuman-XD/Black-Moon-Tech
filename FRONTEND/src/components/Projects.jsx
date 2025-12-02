@@ -12,41 +12,41 @@ const PROJECTS = [
     about:
       "Our platform provides real-time weather updates for any city, helping you stay informed at all times. It includes 5-day forecasts so you can plan your week efficiently. You’ll also get the latest weather news presented in clean. An interactive map displays live and forecasted weather in a visually engaging way. Historical temperature and rainfall charts let you track trends over time. Satellite data is integrated through Google Earth Engine. Forgot password functionality with OTP verification via email keeps your account secure. Finally, the admin dashboard provides user management, feedback statistics, and contact message tracking.",
     tech: ["HTML","CSS","Jquery", "OpenWeather API", "Google earth engine", "Chart.js"],
-    screenshots: ["../public/ProjectImages/weather1.png", "../public/ProjectImages/weather2.png", "../public/ProjectImages/weather3.png"],
+    screenshots: ["../public/ProjectImages/weather1_11zon.avif", "../public/ProjectImages/weather2_11zon.avif", "../public/ProjectImages/weather3_11zon.avif"],
   },
   {
-    title: "Black Moon Portfolio Platform",
-    description: ["React + Vite", "Neon UI", "Premium Animations"],
+    title: "Tourism Management System",
+    description: ["Explore Destinations", "View Tour Packages", "Analytics From A Single Dashboard"],
     image: "Full-Stack Apps (1).avif",
     folder: "images",
-    link: "#",
+    link: "https://github.com/Saswat-Kumar-Nayak/tourism-management-system",
     about:
-      "A portfolio platform showcasing creative work with neon-styled UI, fluid animations, and fast performance. Designed for artists and developers who want a high-impact, visual presentation.",
-    tech: ["React", "Vite", "CSS", "Framer Motion", "SVG"],
-    screenshots: ["bm-01.avif", "bm-02.avif", "bm-03.avif"],
+      "The Tourism Management System is a web application designed to digitalize the workflow of a travel/tour agency. It allows users to discover destinations on an interactive map, view detailed tour packages, register/login securely, and make bookings online.The admin panel provides a complete back-office solution: administrators can manage users, destinations, tour packages, and bookings, as well as view feedback and contact queries. The system includes analytics such as total users/packages/bookings, rating distribution, and user registration trends, helping admins make data-driven decisions.",
+    tech: ["jQuery", "Python (Flask)", "RESTful APIs", "PostgreSQL", "Authentication security"],
+    screenshots: ["../public/ProjectImages/tourisim4_11zon.avif", "../public/ProjectImages/tourisim2_11zon.avif", "../public/ProjectImages/tourisim3_11zon.avif"],
   },
  
   {
-    title: "NovaCart E-Commerce Interface",
-    description: ["AI Filters", "Fast Checkout UX", "Product UI"],
+    title: "Location Based Job Finder",
+    description: ["Real-time Geolocation", "Interactive Maps", "Dynamic Job Filtering"],
     image: "ecommerce.avif",
     folder: "images",
-    link: "#",
+    link: "https://github.com/SAMARESH-PRADHAN/Location-Based-Job-Finder",
     about:
-      "A modern e-commerce frontend focusing on conversion: AI-assisted product filters, lightning-fast checkout flow, and highly-usable product pages with micro-interactions.",
-    tech: ["React", "Stripe", "Node.js", "Tailwind"],
-    screenshots: ["nc-01.avif", "nc-02.avif", "nc-03.avif"],
+      "The Location-Based Job Finder System is a smart, user-friendly web application that helps users discover jobs available near their current location or any selected area on the map. Using real-time geolocation, interactive maps, and dynamic job filtering, the system displays nearby job opportunities with detailed information such as role, company, salary, distance, and exact map position.",
+    tech: ["JavaScript", "OpenLayers", "Flask (Python)", "PostgreSQL"],
+    screenshots: ["../public/ProjectImages/jobfinder1_11zon.avif", "../public/ProjectImages/jobfinder3_11zon.avif", "../public/ProjectImages/jobfinder4_11zon.avif"],
   },
   {
-    title: "Black Moon Analytics Dashboard",
-    description: ["Real-time Charts", "Widget Composer", "Dark Theme"],
+    title: "HireSphere",
+    description: ["Skill-based search", "API-based job results", "Employer job posting module"],
     image: "blackmoon.avif",
     folder: "images",
     link: "#",
     about:
-      "A real-time analytics dashboard with composable widgets, live websocket updates, and a persistent dark theme. Built for operations and product teams needing fast, customizable insights.",
-    tech: ["React", "WebSocket", "Recharts", "Redux"],
-    screenshots: ["ba-01.avif", "ba-02.avif", "ba-03.avif"],
+      "A modern, user-friendly job search system designed with a clean, mobile-app–style UI, just like the design in the image.The interface is minimal, centered, and highly accessible—providing a seamless job-finding experience for freshers and professionals.",
+    tech: ["React.js", "Framer Motion", "Node.js (Express)", "PostgreSQL / MySQL"],
+    screenshots: ["../public/ProjectImages/flux1.avif", "../public/ProjectImages/flux2.avif", "../public/ProjectImages/flux3.avif"],
   },
   {
     title: "LunaAI Chat Assistant",
@@ -57,7 +57,7 @@ const PROJECTS = [
     about:
       "An intelligent chat assistant that integrates with LLM APIs for contextual replies, inline suggestions, and adaptive message formatting. Includes conversation memory and plugin links.",
     tech: ["React", "OpenAI", "IndexedDB", "Socket.io"],
-    screenshots: ["la-01.avif", "la-02.avif", "la-03.avif"],
+    screenshots: ["../public/ProjectImages/luna1.avif", "../public/ProjectImages/luna2.avif", "../public/ProjectImages/luna3.avif"],
   },
   {
     title: "Orion Task Manager",
@@ -68,7 +68,7 @@ const PROJECTS = [
     about:
       "A productivity-first task manager with drag & drop, offline-first sync, and smart scheduling. Designed to reduce context switching with focused workspaces and keyboard-first interactions.",
     tech: ["React", "PWA", "IndexedDB", "REST API"],
-    screenshots: ["ot-01.avif", "ot-02.avif", "ot-03.avif"],
+    screenshots: ["../public/ProjectImages/orion1.avif", "../public/ProjectImages/orion2.avif", "../public/ProjectImages/orion3.avif"],
   },
   {
     title: "QuantumDocs — AI PDF Analyzer",
@@ -79,7 +79,7 @@ const PROJECTS = [
     about:
       "An AI-powered PDF analyzer that extracts sections, generates concise summaries, and enables semantic search across documents. Ideal for research and knowledge work.",
     tech: ["Node.js", "Python", "PDF.js", "OpenAI"],
-    screenshots: ["qd-01.avif", "qd-02.avif", "qd-03.avif"],
+    screenshots: ["../public/ProjectImages/quantum1.avif", "../public/ProjectImages/quantum2.avif", "../public/ProjectImages/quantum3.avif"],
   },
   {
     title: "Nebula UI Component Library",
@@ -90,7 +90,7 @@ const PROJECTS = [
     about:
       "A reusable UI component library with neon-themed tokens, accessible components, and theming support. Built for rapid prototyping of consistent interfaces.",
     tech: ["React", "TypeScript", "Storybook", "CSS Variables"],
-    screenshots: ["nb-01.avif", "nb-02.avif", "nb-03.avif"],
+    screenshots: ["../public/ProjectImages/nebula1.avif", "../public/ProjectImages/nebula2.avif", "../public/ProjectImages/nebula3.avif"],
   },
   {
     title: "FluxAPI — Backend Suite",
@@ -101,7 +101,7 @@ const PROJECTS = [
     about:
       "A production-ready backend suite offering auth, rate-limiting, monitoring hooks and a plugin-based routes system. Designed to be small, fast and secure for modern web apps.",
     tech: ["Node.js", "Express", "PostgreSQL", "JWT"],
-    screenshots: ["fa-01.avif", "fa-02.avif", "fa-03.avif"],
+    screenshots: ["../public/ProjectImages/flux100.avif", "../public/ProjectImages/flux101.avif", "../public/ProjectImages/flux102.avif"],
   },
   {
     title: "Black Moon Mobile (PWA)",
@@ -111,8 +111,8 @@ const PROJECTS = [
     link: "#",
     about:
       "A Progressive Web App variant of the Black Moon suite: offline pages, installable shell, service-worker caching strategies, and smooth mobile-first UX patterns.",
-    tech: ["PWA", "Service Worker", "Workbox", "React"],
-    screenshots: ["bm-pwa-01.avif", "bm-pwa-02.avif", "bm-pwa-03.avif"],
+    tech: ["Node.js", "React.js", "PostgreSQL", "SQL"],
+    screenshots: ["../public/ProjectImages/Blackmoon1.avif", "../public/ProjectImages/Blackmoon2.avif", "../public/ProjectImages/Blackmoon3.avif"],
   },
 ];
 
