@@ -31,7 +31,7 @@
 
 /* Bigger logo */
 .logo {
-  height: 230px;
+  height: 200px;
   width: auto;
    filter: drop-shadow(0 0 18px rgba(185, 55, 255, 1));
 }
