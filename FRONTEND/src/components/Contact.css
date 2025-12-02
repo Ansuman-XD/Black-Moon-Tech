@@ -247,7 +247,7 @@
   justify-content: center;
   margin: 10px 0 18px;
 }
-.bm-mini-logo { width: 56px; height: 56px; border-radius: 10px; object-fit: contain; }
+/* .bm-mini-logo { width: 56px; height: 56px; border-radius: 10px; object-fit: contain; } */
 .bm-contact-rows { display: flex; flex-direction: column; gap: 6px; align-items: center; }
 .bm-email, .bm-phone { color: #ddd; text-decoration: none; font-weight: 600; }
 .bm-address { color: #bdbdbd; font-size: 0.92rem; margin: 0; text-align: center; }

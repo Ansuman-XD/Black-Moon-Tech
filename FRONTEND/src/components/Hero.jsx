@@ -1,48 +1,62 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Hero.css";
 import AuthModal from "./AuthModal";
 
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
 
-  // Lazy-load video (your upstream logic)
+  // Lazy-load background video AFTER page loads
   useEffect(() => {
-    const video = document.getElementById("bgVideo");
-    const source = document.getElementById("bgSource");
+    const source = document.querySelector("#bgVideoSource");
+    const video = document.querySelector("#bgVideo");
 
-    const realSrc = source?.getAttribute("data-src");
-    if (realSrc) {
-      source.setAttribute("src", realSrc);
+    const actualSrc = source.getAttribute("data-src");
+    if (actualSrc) {
+      source.src = actualSrc;
       video.load();
     }
   }, []);
 
-  // Logo slider (your stashed logic)
   const logos = [
-    "../public/Logo/orsacLogo.png",
-    "../public/Logo/uncLogo.webp",
-    "../public/Logo/usbmLogo.jpg",
-    "../public/Logo/odisha-offroaders.webp",
+    "/partnerLogo/part1.avif",
+    "/partnerLogo\part2.avif",
+    "/partnerLogo/part3.avif",
+    "/partnerLogo/part4.avif",
+    "/partnerLogo/part5.avif",
+    "/partnerLogo/part9.avif",
+    "/partnerLogo/part10.avif",
+    "/partnerLogo/part56.avif",
   ];
 
   return (
     <>
       <section className="hero" id="home">
-        {/* Background Video */}
+        
+        {/* ========================== */}
+        {/*  ⭐ SINGLE Background Video */}
+        {/* ========================== */}
         <video
+          id="bgVideo"
           className="video-bg"
           autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
-          loading="lazy"
+          preload="none"
+          poster="/sakura-preview.jpg"   // optional placeholder
         >
-          <source src="sakura-3-compressed.webm" type="video/mp4" />
+          <source
+            id="bgVideoSource"
+            data-src="/sakura-3-compressed.webm"   // <-- correct Vite path
+            type="video/webm"
+          />
         </video>
 
+        {/* ========================== */}
+        {/*      MAIN HERO CONTENT     */}
+        {/* ========================== */}
         <div className="hero-content">
-          {/* Left Overlay Content */}
+          
           <div className="h-overlay">
             <div className="h-badge">
               <span className="dot"></span> Empowering the Digital Universe
@@ -51,12 +65,8 @@ const Hero = () => {
             <h1 className="hero-title">Welcome to Black Moon</h1>
 
             <div className="hero-buttons">
-              <button className="btn btn-light" type="button">
-                <a href="#projects"> Explore Now </a>
-              </button>
-              <button className="btn btn-light" type="button">
-                <a href="#services"> Learn More </a>
-              </button>
+              <a href="#projects" className="btn btn-light">Explore Now</a>
+              <a href="#services" className="btn btn-light">Learn More</a>
             </div>
           </div>
 
@@ -80,13 +90,15 @@ const Hero = () => {
               </button>
             </div>
           </div>
+
         </div>
 
-        {/* Carousal logo scrolling */}
+        {/* ========================== */}
+        {/*         LOGO SLIDER        */}
+        {/* ========================== */}
         <div className="h-logo">
           <h2 className="trust-title">Our Trusted Partners</h2>
 
-          {/* LOGOS */}
           <div className="logo-slider">
             <div className="logo-track">
               {logos.concat(logos).map((l, i) => (
@@ -96,23 +108,6 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Lazy-loaded background video */}
-        <video
-          id="bgVideo"
-          className="video-bg"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="none"
-          poster="/sakura-preview.jpg"
-        >
-          <source
-            id="bgSource"
-            data-src="\sakura-3-compressed.webm"
-            type="video/webm"
-          />
-        </video>
       </section>
 
       <AuthModal

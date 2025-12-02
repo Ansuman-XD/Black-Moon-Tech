@@ -88,10 +88,10 @@ export default function Contact() {
         </div>
 
         <div className="bm-contact-block" aria-label="Contact details">
-          <img src="/assets/logo.png" alt="Black Moon logo" className="bm-mini-logo" />
+          {/* <img src="/assets/logo.png" alt="Black Moon logo" className="bm-mini-logo" /> */}
           <div className="bm-contact-rows">
-            <a href="mailto:contact@blackmoon.com" className="bm-email">contact@blackmoon.com</a>
-            <a href="tel:+918123456789" className="bm-phone">+91 81234 56789</a>
+            <a href="mailto:contact@blackmoon.com" className="bm-email">blackmoon2025@gmail.com</a>
+            <a href="tel:+918123456789" className="bm-phone">+91 8260368742</a>
             <address className="bm-address">Bhubaneswar, Odisha, India</address>
           </div>
         </div>
