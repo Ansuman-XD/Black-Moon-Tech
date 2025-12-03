@@ -29,6 +29,7 @@ export default defineConfig({
   },
 
   server: {
+    host: true,     // Important for Vercel
     port: 5173,
     open: true,
   },
